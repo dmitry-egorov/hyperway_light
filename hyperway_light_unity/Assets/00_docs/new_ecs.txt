@@ -1,0 +1,63 @@
+- use structs instead of components??
+  - structs
+    + direct data access -> performance
+    + can save/load arrays directly
+    + can add read/write semantics to functions directly
+    - can't communicate with unity components through systems
+      + just add a struct with reference to the component
+
+- separate data components, from functional components, e.g.:
+  - current_path is a data component
+  - follows_a_path is an archetype flag, indicating that the system must run on the object
+
+- how to better indicate that the system must run on an object?
+  - by type?
+  - by archetype flag?
+  - with an empty component? (same as archetype flag)
+
+- system requires a flag to indicate it should run
+- flags may require data
+- an archetype is a set of flags and data
+- flag should be on archetype level (shared component)
+
+
+- truly separate data from functionality:
+   - tags determine system query, but the data components are required
+   - sometimes there can be multiple sets of components eligible for the same tags, so maybe the components are not strictly required
+
+
+- tags are static data
+- systems can only query archetype's static data
+- entities can move between archetypes though (if it's implemented)
+- archetypes can be created
+
+
+- r-w-r can be solved by introducing stages that only influence a specific component?
+
+
+
+- a block of entities can have disabled count, that can be skipped when it's zero
+
+
+- directly calling the systems vs auto-arrangement
+  - direct:
+    + more straightforward
+    + easier to debug
+    + arbitrary control flow
+    - harder to arrange
+    - dependencies are implicit (events, read/write)
+  - auto-arrangement
+    + explicit dependencies
+    + easier to arrange
+    - limited control flow
+    - how to deal with out of order read/writes?
+    - how to deal with extra event processing?
+  - hybrid: explicitly call methods, but verify the order
+
+
+- all entities are created beforehand
+- unused entities optimisations:
+  - max enabled entity index
+    - when entity is enabled: check and set the index
+    - when entity is disabled: if it is the last enabled, go in reverse order to find the last enabled
+    - first disable all entities, then update the index, then enable all entities

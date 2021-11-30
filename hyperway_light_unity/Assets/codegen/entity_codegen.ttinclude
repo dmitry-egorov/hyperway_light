@@ -1,0 +1,31 @@
+<# void generate_fields((string name, string type_name)[] fields) {#>
+<#      foreach(var field in fields) { #>
+        public <#=field.type_name#> <#=field.name#>;
+<#      } #>
+
+        public partial struct entity {
+<#          foreach(var field in fields) { #>
+            public ref <#=field.type_name#> <#=field.name#> => ref instance.<#=field.name#>;
+<#          } #>
+        }
+
+        public partial struct archetype {
+<#          foreach(var field in fields) { #>
+            public ref <#=field.type_name#> <#=field.name#> => ref instance.<#=field.name#>;
+<#          } #>
+        }
+<# } #>
+
+<# void generate_entity_fields(string name, string @namespace, (string name, string type_name)[] fields) {#>
+        public partial struct archetype {
+<#          foreach(var field in fields) { #>
+            public <#=field.type_name#>[] <#=field.name#>;
+<#          } #>
+        }
+
+        public partial struct entity {
+<#          foreach(var field in fields) { #>
+            public ref <#=field.type_name#> <#=field.name#> => ref archetypes[arch_index].<#=field.name#>[index];
+<#          } #>
+        }
+<# } #>
