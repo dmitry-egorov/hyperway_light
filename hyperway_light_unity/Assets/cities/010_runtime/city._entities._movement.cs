@@ -15,7 +15,8 @@ namespace Cities {
             
             public void apply_velocities() {
                 if (use(curr_position, curr_velocity)) {} else return;
-                curr_position.apply(curr_velocity, count);
+                for (var i = 0; i < count; i++)
+                    curr_position[i].apply(curr_velocity[i]);
             }
         }
     }
@@ -23,13 +24,7 @@ namespace Cities {
     [save] public partial struct velocity { public float2 vec; }
     public partial struct position { public void apply(velocity v) => vec += v.vec; }
 
-    public static partial class position_arr_ext {
-        public static void apply(this position[] positions, velocity[] velocities, int count) {
-            Debug.Assert(count <= positions.Length && count <= velocities.Length);
-            for (var i = 0; i < count; i++)
-                positions[i].apply(velocities[i]);
-        } 
-    }
+    public static partial class position_arr_ext { }
     public static partial class random_ext {
         public static velocity next_velocity(this ref Random r                        ) => new velocity { vec = r.NextFloat2() };
         public static velocity next_velocity(this ref Random r, float2 max            ) => new velocity { vec = r.NextFloat2(max) };

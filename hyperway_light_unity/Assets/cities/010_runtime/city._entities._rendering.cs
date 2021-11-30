@@ -8,15 +8,11 @@ namespace Cities {
     public partial struct city {
         public partial struct archetype {
             public void update_transform() {
-                if (use(transform, prev_position, curr_position)) {
-                    var ratio = frame_to_tick_ratio;
-                    for (var i = 0; i < count; i++)
-                        transform[i].localPosition = prev_position[i].lerp(curr_position[i], ratio).to_vec3();
-                }
-                else if (use(transform, curr_position)) {
-                    for (var i = 0; i < count; i++) 
-                        transform[i].localPosition = curr_position[i].to_vec3();
-                }
+                if (use(transform, prev_position, curr_position)) {} else return;
+                
+                var ratio = frame_to_tick_ratio;
+                for (var i = 0; i < count; i++)
+                    transform[i].localPosition = prev_position[i].lerp(curr_position[i], ratio).to_vec3();
             }
         }
     }

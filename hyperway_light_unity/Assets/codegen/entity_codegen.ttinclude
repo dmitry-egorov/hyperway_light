@@ -3,13 +3,13 @@
         public <#=field.type_name#> <#=field.name#>;
 <#      } #>
 
-        public partial struct entity {
+        public partial struct archetype {
 <#          foreach(var field in fields) { #>
             public ref <#=field.type_name#> <#=field.name#> => ref instance.<#=field.name#>;
 <#          } #>
         }
 
-        public partial struct archetype {
+        public partial struct entity {
 <#          foreach(var field in fields) { #>
             public ref <#=field.type_name#> <#=field.name#> => ref instance.<#=field.name#>;
 <#          } #>
@@ -18,6 +18,9 @@
 
 <# void generate_entity_fields((string name, string type_name)[] fields) {#>
         public partial struct archetype {
+            public ushort count;
+            public ushort capacity;
+
 <#          foreach(var field in fields) { #>
             public <#=field.type_name#>[] <#=field.name#>;
 <#          } #>

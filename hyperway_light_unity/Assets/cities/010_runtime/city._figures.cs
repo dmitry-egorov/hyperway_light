@@ -11,9 +11,7 @@ namespace Cities {
                 create_or_expand(ref curr_velocity, count);
                 create_or_expand(ref transform    , count);
             }
-        }
-        
-        public partial struct archetype {
+            
             public void make_random_figures(float2 min_pos, float2 max_pos, float2 min_vel, float2 max_vel) {
                 if  (use(prev_position, curr_position, curr_velocity)) { } else return;
                 for (var i = 0; i < count; i++) {

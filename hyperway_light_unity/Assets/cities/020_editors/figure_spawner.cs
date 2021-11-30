@@ -23,7 +23,7 @@ namespace Cities {
             var max_vel = new float2(1, 1) *  max_speed;
             
             archetype.make_random_figures(min_pos, max_pos, min_vel, max_vel);
-            for (var i = 0; i < count; i++) 
+            for (var i = 0; i < count; i++)
                 archetype.transform[i] = Instantiate(prefab).transform;
         }
     }

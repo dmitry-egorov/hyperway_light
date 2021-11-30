@@ -28,6 +28,9 @@ namespace Cities {
         }
  
         public partial struct archetype {
+            public ushort count;
+            public ushort capacity;
+
             public  position[] curr_position;
             public  position[] prev_position;
             public  velocity[] curr_velocity;
