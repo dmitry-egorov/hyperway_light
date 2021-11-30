@@ -16,7 +16,7 @@
         }
 <# } #>
 
-<# void generate_entity_fields(string name, string @namespace, (string name, string type_name)[] fields) {#>
+<# void generate_entity_fields((string name, string type_name)[] fields) {#>
         public partial struct archetype {
 <#          foreach(var field in fields) { #>
             public <#=field.type_name#>[] <#=field.name#>;

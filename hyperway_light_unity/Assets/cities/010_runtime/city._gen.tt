@@ -11,7 +11,7 @@ namespace Cities {
        ("time_till_next_tick", "float      "),
        ("frame_to_tick_ratio", "float      "),
    });#> 
-<# generate_entity_fields("city", "Cities", new[] {
+<# generate_entity_fields(new[] {
        ("curr_position", " position"),
        ("prev_position", " position"),
        ("curr_velocity", " velocity"),
