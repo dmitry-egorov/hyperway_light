@@ -43,7 +43,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61a9d7bb646494fa4d417232d97a1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  random_seed: 243
+  random_seed: 42
+  camera_rig_transform: {fileID: 5108683208670968225}
+  camera_keyboard_speed: 10
+  city:
+    _runtime:
+      sim_paused: 0
+      time_till_next_tick: 0
+      frame_to_tick_ratio: 0
+    _random:
+      seed: 0
+      generator:
+        state: 0
+    _camera:
+      keyboard_move_speed: 0
+      position:
+        vec:
+          x: 0
+          y: 0
+      rig_transform: {fileID: 0}
+    _archetypes: []
 --- !u!1 &4250978096991501647
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +271,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8250553573837712437}
-  m_LocalRotation: {x: 0.46193978, y: -0.33141357, z: 0.19134171, w: 0.8001032}
+  m_LocalRotation: {x: 0.46193978, y: 0.33141357, z: -0.19134171, w: 0.8001032}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

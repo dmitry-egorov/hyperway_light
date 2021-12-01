@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/cities/040_experimental/figures_test.unity
+    path: Assets/cities/050_experimental/figures_test.unity
     guid: 0555504f83e7d4e248be8e69bdad63e7
   m_configObjects: {}

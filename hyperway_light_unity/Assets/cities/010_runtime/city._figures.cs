@@ -1,5 +1,5 @@
 using Unity.Mathematics;
-using static Cities.arr_ext;
+using static Utilities.Collections.arr_ext;
 
 namespace Cities {
     public partial struct city {

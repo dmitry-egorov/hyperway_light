@@ -1,0 +1,4 @@
+set fixed at time:
+- fields     : comp
+- archetypes : comp (load?)
+- counts     : load

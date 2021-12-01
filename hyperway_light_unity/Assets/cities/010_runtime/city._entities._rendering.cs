@@ -10,15 +10,15 @@ namespace Cities {
             public void update_transform() {
                 if (use(transform, prev_position, curr_position)) {} else return;
                 
-                var ratio = frame_to_tick_ratio;
+                var ratio = runtime.frame_to_tick_ratio;
                 for (var i = 0; i < count; i++)
-                    transform[i].localPosition = prev_position[i].lerp(curr_position[i], ratio).to_vec3();
+                    transform[i].localPosition = prev_position[i].lerp(curr_position[i], ratio).to_v3();
             }
         }
     }
 
     public partial struct position {
-        public Vector3 to_vec3() => new Vector3(vec.x, 0, vec.y);
+        public Vector3 to_v3() => new Vector3(vec.x, 0, vec.y);
         public position lerp(position other, float ratio) => math.lerp(vec, other.vec, ratio);
     }
 }

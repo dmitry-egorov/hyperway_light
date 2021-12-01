@@ -1,6 +1,6 @@
 using System;
 
-namespace Cities {
+namespace Utilities.Collections {
     public static class arr_ext {
         public static void create_or_expand<t>(ref t[] arr, int count) {
             if (arr == null)

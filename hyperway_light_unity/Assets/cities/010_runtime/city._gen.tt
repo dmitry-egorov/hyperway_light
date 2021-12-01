@@ -5,11 +5,10 @@ using Random = Unity.Mathematics.Random;
 namespace Cities {
     public partial struct city {
 <# generate_fields(new[] {
-       ("archetypes         ", "archetype[]"),
-       ("random             ", "Random     "),
-       ("paused             ", "bool       "),
-       ("time_till_next_tick", "float      "),
-       ("frame_to_tick_ratio", "float      "),
+       ("runtime   ", "runtime    "),
+       ("random    ", "random     "),
+       ("camera    ", "camera     "),
+       ("archetypes", "archetype[]"),
    });#> 
 <# generate_entity_fields(new[] {
        ("curr_position", " position"),

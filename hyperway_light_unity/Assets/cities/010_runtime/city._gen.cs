@@ -1,30 +1,24 @@
-﻿
-
-using UnityEngine;
-using Random = Unity.Mathematics.Random;
+﻿using UnityEngine;
 
 namespace Cities {
     public partial struct city {
-        public archetype[] archetypes         ;
-        public Random      random             ;
-        public bool        paused             ;
-        public float       time_till_next_tick;
-        public float       frame_to_tick_ratio;
-
-        public partial struct entity {
-            public ref archetype[] archetypes          => ref instance.archetypes         ;
-            public ref Random      random              => ref instance.random             ;
-            public ref bool        paused              => ref instance.paused             ;
-            public ref float       time_till_next_tick => ref instance.time_till_next_tick;
-            public ref float       frame_to_tick_ratio => ref instance.frame_to_tick_ratio;
-        }
+        public runtime     _runtime   ;
+        public random      _random    ;
+        public camera      _camera    ;
+        public archetype[] _archetypes;
 
         public partial struct archetype {
-            public ref archetype[] archetypes          => ref instance.archetypes         ;
-            public ref Random      random              => ref instance.random             ;
-            public ref bool        paused              => ref instance.paused             ;
-            public ref float       time_till_next_tick => ref instance.time_till_next_tick;
-            public ref float       frame_to_tick_ratio => ref instance.frame_to_tick_ratio;
+            public ref runtime     runtime    => ref data._runtime   ;
+            public ref random      random     => ref data._random    ;
+            public ref camera      camera     => ref data._camera    ;
+            public ref archetype[] archetypes => ref data._archetypes;
+        }
+
+        public partial struct entity {
+            public ref runtime     runtime    => ref data._runtime   ;
+            public ref random      random     => ref data._random    ;
+            public ref camera      camera     => ref data._camera    ;
+            public ref archetype[] archetypes => ref data._archetypes;
         }
  
         public partial struct archetype {

@@ -9,12 +9,14 @@ namespace Utilities.Maths {
         public static Vector3 xy0(this Vector2 f2) => new Vector3(f2.x, f2.y, 0);
         public static Vector3 x0y(this Vector2 f2) => new Vector3(f2.x, 0, f2.y);
         public static Vector3 x0z(this Vector3 v3) => new Vector3(v3.x, 0, v3.z);
-        public static Vector2 xy(this Vector3 v3) => new Vector2(v3.x, v3.y);
-        public static Vector2 xz(this Vector3 v3) => new Vector2(v3.x, v3.z);
-        public static Vector2 yz(this Vector3 v3) => new Vector2(v3.y, v3.z);
+        public static Vector2  xy(this Vector3 v3) => new Vector2(v3.x, v3.y);
+        public static Vector2  xz(this Vector3 v3) => new Vector2(v3.x, v3.z);
+        public static Vector2  yz(this Vector3 v3) => new Vector2(v3.y, v3.z);
         
         public static Vector3 _0y0(this Vector3 v3) => new Vector3(0, v3.y, 0);
         public static Vector3 _00z(this Vector3 v3) => new Vector3(0, 0, v3.z);
+
+        public static float2 to_f2(this Vector2 v2) => v2;
         
         public static Quaternion rotation_to(this Vector3 v0, Vector3 v1, Vector3 fallback_axis = default) {
             // Based on Stan Melax's article in Game Programming Gems
