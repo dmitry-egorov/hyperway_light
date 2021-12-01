@@ -1,0 +1,7 @@
+- need to generate entities
+- can generate at post or at scenario init
+  - at post:
+    - scene is complete when loading, no extra processing needed
+    - generation functionality is flexible
+  - at init:
+    - less data to load -- can be faster
