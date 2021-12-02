@@ -1,13 +1,12 @@
 using UnityEngine;
 using Utilities.Maths;
+using static Common.Mouse;
 using static UnityEngine.RuntimeInitializeLoadType;
-using static Utilities.Runtime.Mouse;
 using static Utilities.Runtime.singletons;
 
-namespace Utilities.Runtime {
-    [DefaultExecutionOrder(-100)]
+namespace Common {
     public class MouseDrag : MonoBehaviour {
-        public float min_drag_dpi_distance = 0.05f; 
+        public float min_drag_dpi_distance = 0.05f;
 
         public static    bool in_progress   { get; private set; }
         public static    bool started       { get; private set; }
@@ -40,7 +39,7 @@ namespace Utilities.Runtime {
         void LateUpdate() => prev_position = curr_position;
 
         [RuntimeInitializeOnLoadMethod(BeforeSceneLoad)]
-        static void Load() => check_and_create_persistant_instance(ref instance);
+        static void Load() => check_and_create_persistant(ref instance);
         static MouseDrag instance;
     }
 }

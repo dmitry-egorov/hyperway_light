@@ -152,11 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cc58568d1347309cd495f4dee30834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera_fov_distance: 7
   camera_keyboard_speed: 10
-  camera_mouse_drag_max_speed: 150
-  camera_mouse_drag_slowdown: 150
+  camera_mouse_max_speed: 150
+  camera_mouse_slowdown: 100
   settings:
     _camera:
+      fov_distance: 0
       keyboard_speed: 0
       mouse_drag_max_speed: 0
       mouse_drag_slowdown: 0

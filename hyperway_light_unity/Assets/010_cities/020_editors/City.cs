@@ -14,9 +14,6 @@ namespace Cities.editors {
 
         void Awake () {
             city.data_provider = () => ref city;
-            var rig = 
-            city._camera.rig_transform = FindObjectOfType<CameraRigMarker>().transform;
-            city._camera.unity_camera  = rig.GetComponentInChildren<Camera>();
         }
 
         void Update() {

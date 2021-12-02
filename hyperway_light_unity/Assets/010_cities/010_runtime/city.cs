@@ -16,7 +16,6 @@ namespace Cities {
 
         public void init() {
             _random.init();
-            _camera.init();
         }
 
         public void update() {
@@ -34,8 +33,6 @@ namespace Cities {
         void update_visualisation() {
             using var _ = profiler_ex.profile();
 
-            _camera.update();
-            
             // entities
             for_each((ref archetype _) => _.update_transform());
         }

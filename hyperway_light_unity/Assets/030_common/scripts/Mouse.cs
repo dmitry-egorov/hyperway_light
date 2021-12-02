@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utilities.Runtime {
+namespace Common {
     [DefaultExecutionOrder(-110)]
     public class Mouse : MonoBehaviour {
         public static Vector3 position   => Input.mousePosition;

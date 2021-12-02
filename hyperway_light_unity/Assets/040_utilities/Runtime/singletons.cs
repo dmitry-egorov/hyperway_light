@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Utilities.Runtime {
     public static partial class singletons {
-        public static void check_and_create_persistant_instance<t>(ref t instance) where t : Component {
+        public static void check_and_create_persistant<t>(ref t instance) where t : Component {
             if (instance == null) {} else return;
 
             instance = Object.FindObjectOfType<t>();

@@ -6,10 +6,7 @@ namespace Cities {
         public partial struct archetype {
             public void make_figure_archetype(ushort entity_count) {
                 capacity = count = entity_count;
-                create_or_expand(ref prev_position, count);
-                create_or_expand(ref curr_position, count);
-                create_or_expand(ref curr_velocity, count);
-                create_or_expand(ref transform    , count);
+                expand(ref prev_position, ref curr_position, ref curr_velocity, ref transform, count);
             }
             
             public void make_random_figures(ref Random random, float2 min_pos, float2 max_pos, float2 min_vel, float2 max_vel) {
