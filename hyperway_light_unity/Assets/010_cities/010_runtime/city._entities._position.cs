@@ -1,5 +1,6 @@
 using System;
 using Unity.Mathematics;
+using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
 namespace Cities {
@@ -22,9 +23,11 @@ namespace Cities {
         public static bool   operator !=(offset o1, offset   o2) => !(o1 == o2);
         public static offset operator  +(offset o1, offset   o2) => o1.vec + o2.vec;
         public static offset operator  *(offset o , float    s ) => o.vec * s;
+        public static offset operator  /(offset o , float    s ) => o.vec / s;
 
         public static implicit operator offset((float x, float y) t) => new float2(t.x, t.y);
-        public static implicit operator offset(float2 f2) => new offset { vec = f2 };
+        public static implicit operator offset( float2 f2) => new offset { vec = f2 };
+        public static implicit operator offset(Vector2 v2) => new offset { vec = v2 };
     }
 
     public partial struct city {

@@ -2,3 +2,10 @@ set fixed at time:
 - fields     : comp
 - archetypes : comp (load?)
 - counts     : load
+
+
+- each scene has its own entity_manager
+- unique type of EM for each scene?
+
+- interscene and generic references (entity click)?
+  - each EM has an id, that can be referenced

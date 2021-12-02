@@ -153,6 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera_keyboard_speed: 10
+  camera_mouse_drag_max_speed: 150
+  camera_mouse_drag_slowdown: 150
+  settings:
+    _camera:
+      keyboard_speed: 0
+      mouse_drag_max_speed: 0
+      mouse_drag_slowdown: 0
 --- !u!4 &1082066324
 Transform:
   m_ObjectHideFlags: 0

@@ -1,13 +1,30 @@
 using System;
 using Unity.Mathematics;
+using UnityEngine;
 using Utilities.Collections;
 using Random = Unity.Mathematics.Random;
 
 namespace Cities {
     using save = SerializableAttribute;
-    
-    [save] public partial struct velocity { public float2 vec; }
-    public partial struct position { public void apply(velocity v) => vec += v.vec; }
+
+    [save] public partial struct velocity {
+        public float2 vec;
+
+        public float sq_magnitude => math.lengthsq(vec);
+        public float    magnitude => math.length(vec);
+        
+        public static velocity zero  => default;
+        public static velocity operator  +(velocity o1, velocity   o2) => o1.vec + o2.vec;
+        public static velocity operator  *(velocity o , float      s ) => o.vec * s;
+        public static velocity operator  /(velocity o , float      s ) => o.vec / s;
+        public static implicit operator velocity( float2 f2) => new velocity { vec = f2 };
+        public static implicit operator velocity(Vector2 v2) => new velocity { vec = v2 };
+    }
+
+    public partial struct position {
+        public void apply(velocity v) => vec += v.vec;
+        public static position operator +(position p, velocity v) => p.vec + v.vec;
+    }
 
     public partial struct city {
         public partial struct archetype {

@@ -14,6 +14,8 @@ namespace Game {
         [save] public struct 
         camera {
             public float keyboard_speed;
+            public float mouse_drag_max_speed;
+            public float mouse_drag_slowdown;
         }
     }
 }
