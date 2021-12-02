@@ -16,9 +16,4 @@ namespace Cities {
             }
         }
     }
-
-    public partial struct position {
-        public Vector3 to_v3() => new Vector3(vec.x, 0, vec.y);
-        public position lerp(position other, float ratio) => math.lerp(vec, other.vec, ratio);
-    }
 }

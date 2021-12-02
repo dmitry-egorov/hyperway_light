@@ -27,7 +27,7 @@ namespace Cities {
             public bool drag_inertia_not_faded => drag_inertia.sq_magnitude > 0.0001f;
 
             public void init() {
-                position = rig_transform.localPosition.xz().to_f2();
+                position = rig_transform.localPosition.xz();
             }
 
             public void update() {
@@ -69,11 +69,10 @@ namespace Cities {
                 plane.intersect(prev_ray, out var prev_intersect);
                 plane.intersect( cur_ray, out var  cur_intersect);
 
-                var delta = (offset)(prev_intersect - cur_intersect).xz();
+                var delta = (velocity)(prev_intersect - cur_intersect).xz();
                 position += delta;
 
-                var vel = delta / deltaTime;
-                drag_inertia = math.lerp(drag_inertia.vec, vel.vec, 0.75f);
+                drag_inertia = drag_inertia.lerp(delta / deltaTime, 0.75f);
 
                 Vector2 curr_pos  () => MouseDrag.curr_position;
                 Vector2 prev_pos  () => MouseDrag.prev_position;

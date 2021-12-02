@@ -13,6 +13,8 @@ namespace Cities {
         public float sq_magnitude => math.lengthsq(vec);
         public float    magnitude => math.length(vec);
         
+        public velocity lerp(velocity other, float ratio) => math.lerp(vec, other.vec, ratio);
+        
         public static velocity zero  => default;
         public static velocity operator  +(velocity o1, velocity   o2) => o1.vec + o2.vec;
         public static velocity operator  *(velocity o , float      s ) => o.vec * s;
