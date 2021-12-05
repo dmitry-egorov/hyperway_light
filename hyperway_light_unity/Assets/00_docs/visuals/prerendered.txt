@@ -1,0 +1,2 @@
+- try prerendered background for the cave
+  - requires too much detail -> development time

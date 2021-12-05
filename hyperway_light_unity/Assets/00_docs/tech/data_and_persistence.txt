@@ -1,5 +1,6 @@
 - methods prefer the data to be in scope all at once
 - serialisation prefer the data to be split into structs corresponding to lifetimes (config, savefile, transient)
+- versioning prevents the data from being all at once anyway
 
 - solution:
   ? code generation: specify data separately, generate extra access properties
