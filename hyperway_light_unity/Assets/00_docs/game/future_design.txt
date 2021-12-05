@@ -1,0 +1,12 @@
+- caesar 3 without walkers + elements of frostpunk
+  - place buildings
+    - designate living space
+    - place common buildings
+      - market to distribute resources
+  -  gather and manage resources
+  - attract and manage population
+    - attract population
+    - satisfy needs
+    - assign jobs and shifts
+  - research tech
+  - set policies

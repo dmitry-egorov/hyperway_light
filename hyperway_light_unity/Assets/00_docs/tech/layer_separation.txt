@@ -1,0 +1,23 @@
+separate scenes:
+- game_common
+- main_menu ui
+- city
+  - common
+  - ui
+  - campaign
+  - scenario
+  - runtime
+
+- separation options:
+  - separate simulation from everything else
+    - how to save UI state (if it's required)
+    - how to determine the order of operations? (dependencies)
+    - ecs reusability?
+  - separate game from rendering
+    - can use unity as a renderer, editor and platform only
+    - need to implement extra logic:
+      - collisions
+      - raycasting
+  
+
+

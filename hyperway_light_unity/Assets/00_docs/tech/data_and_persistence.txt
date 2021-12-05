@@ -1,0 +1,37 @@
+- methods prefer the data to be in scope all at once
+- serialisation prefer the data to be split into structs corresponding to lifetimes (config, savefile, transient)
+
+- solution:
+  ? code generation: specify data separately, generate extra access properties
+  + don't bother separating the data in memory by lifetime, write serialisation code (ala augustus)
+
+
+
+game
+  config
+  current_scenario
+    config
+    city
+    
+    
+- settings
+- persistent
+- transient
+
+
+for the game, the current scenario is transient, but scenario is saved separately and has its own persistent data
+
+
+- should the game transient state store only the scenario id?
+
+
+loading
+  - start of a game
+    - load game.config
+  - load save file
+    - load game.persistant
+    - load scenario.config
+    - load scenario.persistant
+    
+    
+- scenario config is part of game.persistent conceptually, but should be loaded separately

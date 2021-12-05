@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/010_cities/050_experiments/figures_test.unity
+    path: Assets/01_game/scenarios/experimental/figures_test.unity
     guid: 0555504f83e7d4e248be8e69bdad63e7
   - enabled: 1
-    path: Assets/005_game/game_common.unity
+    path: Assets/01_game/game_common.unity
     guid: 401ae413a82914ed380b43cc554ad5dc
   m_configObjects: {}

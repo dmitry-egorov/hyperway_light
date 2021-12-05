@@ -1,0 +1,65 @@
+Farming incident.
+
+gameplay:
+- place a mine, resources come in.
+- spend resources to place more mines.
+- goal: repair the geothermal farm.
+- lose: the time is limited by the amount of stored food.
+
+extra gameplay:
+- the nearest city sends some relief after some time
+  - can't send it a second time, because they're preparing for a storm lockdown
+- food preservation policy
+  - decreases food consumption
+  - reduces happiness and health
+- child labour policy
+  - more productivity
+  - reduces happiness
+  - reduces education level
+- extra hours policy
+  - more productivity
+  - reduces happiness and health
+- starvation
+  - reduces health and productivity
+- engineering research
+  - reduce the cost and build time of the repairs
+- incremental build research
+  - each stage of repair adds food income 
+  - increases cost and time of the repair
+- build a factory and worker bots
+  - increases productivity
+  - increases pollution -> reduces health
+  
+super extra:
+- the storm turned out to be the locust attack
+- the outpost needs to be evacuated immediately and for that a colonisation fleet must be built
+- alternative technology that turns electricity into food
+
+
+story:
+- a geothermal farm is destroyed by an explosion.
+- the food supply is limited.
+- the people will starve unless the farm is rebuilt.
+- there's not enough resources for construction, so the people need to build more mines.
+- the backstory
+  - this is an outpost in the deep caves, built to study a strange artifact
+
+visuals:
+- a cave
+- places to build the mines inside the walls
+- a farm on a lake with geothermal sources
+- a place where the people live
+
+advanced visuals:
+- explosion animation
+- people are walking on the streets
+- houses have blinking lights
+- the walls are glowing gently
+- underwater geothermal source
+
+sounds:
+- dripping water
+- mellow, slightly dark music
+
+requires:
+  - 
