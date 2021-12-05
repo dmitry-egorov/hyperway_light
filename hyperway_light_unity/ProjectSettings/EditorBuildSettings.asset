@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01_game/scenarios/experimental/figures_test.unity
+    path: Assets/01_game/scenario/experimental/figures_test.unity
     guid: 0555504f83e7d4e248be8e69bdad63e7
   - enabled: 1
     path: Assets/01_game/game_common.unity
