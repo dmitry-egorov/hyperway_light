@@ -19,7 +19,7 @@ namespace Hyperway.unity {
         public void Start() {
             if (count == 0) return;
             
-            ref var type = ref new_entity_type();
+            ref var type = ref entities.new_entity_type();
             type.make_figure_type(count);
 
             var min_pos = new float2(1, 1) * -range;

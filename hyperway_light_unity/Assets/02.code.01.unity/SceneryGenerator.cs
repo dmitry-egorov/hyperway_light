@@ -15,7 +15,7 @@ namespace Hyperway.unity {
         public go prefab;
 
         public void Start() {
-            ref var type = ref new_entity_type();
+            ref var type = ref entities.new_entity_type();
             type.make_scenery_type(count);
 
             var min_pos = new float2(1, 1) * -range;

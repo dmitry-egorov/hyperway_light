@@ -1,12 +1,11 @@
-using Lanski.Utilities.boxing;
 using static Utilities.Profiling.profiler_ex;
 
 namespace Hyperway {
     public partial struct hyperway {
         public void start() {
-            random.start();
-            camera.start();
-            init_entities();
+              random.start();
+              camera.start();
+            entities.start();
         }
 
         public void update() {
@@ -20,18 +19,16 @@ namespace Hyperway {
         
         public void update_simulation() {
             using var _ = profile();
-            
-            for_each((ref entity_type _) => _.remember_prev_positions());
-            for_each((ref entity_type _) => _.apply_velocities       ());
+
+            entities.update_simulation();
         }
 
         public void update_visualisation() {
             using var _ = profile();
             
             camera.update();
-
-            // entities
-            for_each((ref entity_type _) => _.update_transform());
+            
+            entities.update_visualisation();
         }
     }
 }

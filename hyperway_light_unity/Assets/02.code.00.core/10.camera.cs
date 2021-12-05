@@ -3,8 +3,15 @@ using Unity.Mathematics;
 using UnityEngine;
 using Utilities.Maths;
 using static Hyperway.hyperway;
+using static UnityEngine.Input;
+using static UnityEngine.KeyCode;
+using static UnityEngine.Mathf;
+using static UnityEngine.Screen;
+using static UnityEngine.Time;
 
 namespace Hyperway {
+    using key = KeyCode;
+    
     public partial struct camera {
         public void start() {
             position = transform.localPosition.xz();
@@ -21,23 +28,23 @@ namespace Hyperway {
         }
         
         void keep_constant_fov() {
-            fov = 2.0f * Mathf.Atan(Screen.height / Screen.dpi * 0.5f / fov_distance) * Mathf.Rad2Deg;
+            fov = 2.0f * Atan(height / dpi * 0.5f / fov_distance) * Rad2Deg;
         }
         void move_with_keys   () {
-            if (Input.anyKey) {} else return;
+            if (anyKey) {} else return;
                 
             var dir = offset2.zero; var move = false;
-            if (keys(KeyCode.A, KeyCode.LeftArrow )) {dir  = offset2.left  + offset2.up   ; move = true; }
-            if (keys(KeyCode.D, KeyCode.RightArrow)) {dir += offset2.right + offset2.down ; move = true; }
-            if (keys(KeyCode.W, KeyCode.UpArrow   )) {dir += offset2.up    + offset2.right; move = true; }
-            if (keys(KeyCode.S, KeyCode.DownArrow )) {dir += offset2.down  + offset2.left ; move = true; }
+            if (keys(A, LeftArrow )) {dir  = offset2.left  + offset2.up   ; move = true; }
+            if (keys(D, RightArrow)) {dir += offset2.right + offset2.down ; move = true; }
+            if (keys(W, UpArrow   )) {dir += offset2.up    + offset2.right; move = true; }
+            if (keys(S, DownArrow )) {dir += offset2.down  + offset2.left ; move = true; }
                 
             if (move) {} else return;
 
-            position += dir * (Time.deltaTime * keyboard_speed);
+            position += dir * (deltaTime * keyboard_speed);
                 
-            static bool keys(KeyCode key1, KeyCode key2) => key(key1) || key(key2);
-            static bool key (KeyCode key) => Input.GetKey(key);
+            static bool keys(key key1, key key2) => key(key1) || key(key2);
+            static bool key (key key) => GetKey(key);
         }
         void drag_with_mouse  () {
             if (down         ()) { drag_inertia =  offset2.zero; }
@@ -55,7 +62,7 @@ namespace Hyperway {
 
             var delta = (offset2)(prev_intersect - cur_intersect).xz();
             position += delta;
-            drag_inertia = drag_inertia.lerp(delta / Time.deltaTime, 0.75f);
+            drag_inertia = drag_inertia.lerp(delta / deltaTime, 0.75f);
 
             point2 curr_pos    () => _mouse.position;
              bool down         () => _mouse.is_down;
@@ -67,10 +74,10 @@ namespace Hyperway {
             if (is_not_dragged) {} else return;
             if (drag_inertia_not_faded) {} else { drag_inertia = offset2.zero; return; }
 
-            position += drag_inertia * Time.deltaTime;
+            position += drag_inertia * deltaTime;
 
             var cur_speed = drag_inertia.magnitude;
-            var     speed = math.clamp(cur_speed - mouse_drag_slowdown * Time.deltaTime, 0, mouse_drag_max_speed);
+            var     speed = math.clamp(cur_speed - mouse_drag_slowdown * deltaTime, 0, mouse_drag_max_speed);
             drag_inertia *= speed / cur_speed;
         }
         void update_view      () {

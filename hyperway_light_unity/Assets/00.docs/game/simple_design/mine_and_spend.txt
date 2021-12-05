@@ -30,11 +30,10 @@ extra gameplay:
   - increases productivity
   - increases pollution -> reduces health
   
-super extra:
+super extra gameplay:
 - the storm turned out to be the locust attack
 - the outpost needs to be evacuated immediately and for that a colonisation fleet must be built
 - alternative technology that turns electricity into food
-
 
 story:
 - a geothermal farm is destroyed by an explosion.
@@ -60,6 +59,3 @@ advanced visuals:
 sounds:
 - dripping water
 - mellow, slightly dark music
-
-requires:
-  - 

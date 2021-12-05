@@ -7,16 +7,25 @@ using static Utilities.Profiling.profiler_ex;
 namespace Hyperway {
     using ln = CallerLineNumberAttribute;
     
-    public partial struct hyperway {
+    public partial struct entities {
         public static ref entity_type new_entity_type() => ref proto_entity_types.add(default);
         
-        public void init_entities() {
+        public void start() {
             entity_types = proto_entity_types.ToArray();
             proto_entity_types = vec<entity_type>.empty;
         }
 
-        delegate void type_action(ref entity_type entity_type);
-        void for_each(type_action action, [ln] int ln = 0) {
+        public void update_simulation() {
+            for_each((ref entity_type _) => _.remember_prev_positions());
+            for_each((ref entity_type _) => _.apply_velocities());
+        }
+
+        public void update_visualisation() {
+            for_each((ref entity_type _) => _.update_transform());
+        }
+
+        public delegate void type_action(ref entity_type entity_type);
+        public void for_each(type_action action, [ln] int ln = 0) {
             using var _ = profile(ln.cached_to_string());
 
             for (var type_i = 0; type_i < entity_types.Length; type_i++) {

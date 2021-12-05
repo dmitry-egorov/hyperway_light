@@ -1,0 +1,20 @@
+requires:
+- resources
+  - matter
+  - food
+- mines
+  - produce matter
+- houses
+  - consume food
+- build ui
+  - select a building type
+  - highlights available spots
+  - place a building
+  - building construction
+
+todo:
+- buildings
+- resources
+- buildings store resources
+- buildings consume resources
+- buildings produce resources
