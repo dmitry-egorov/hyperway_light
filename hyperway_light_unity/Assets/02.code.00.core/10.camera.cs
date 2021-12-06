@@ -47,7 +47,7 @@ namespace Hyperway {
             static bool key (key key) => GetKey(key);
         }
         void drag_with_mouse  () {
-            if (down         ()) { drag_inertia =  offset2.zero; }
+            if (down         ()) { inertia =  offset2.zero; }
             if (drag_started ()) { is_dragged   =  true; } // TODO: ensure the mouse was not over UI when mouse button was down
             if (drag_finished()) { is_dragged   = false; }
                 
@@ -62,7 +62,7 @@ namespace Hyperway {
 
             var delta = (offset2)(prev_intersect - cur_intersect).xz();
             position += delta;
-            drag_inertia = drag_inertia.lerp(delta / deltaTime, 0.75f);
+            inertia = inertia.lerp(delta / deltaTime, 0.75f);
 
             point2 curr_pos    () => _mouse.position;
              bool down         () => _mouse.is_down;
@@ -72,13 +72,13 @@ namespace Hyperway {
         }
         void apply_inertia    () {
             if (is_not_dragged) {} else return;
-            if (drag_inertia_not_faded) {} else { drag_inertia = offset2.zero; return; }
+            if (drag_inertia_not_faded) {} else { inertia = offset2.zero; return; }
 
-            position += drag_inertia * deltaTime;
+            position += inertia * deltaTime;
 
-            var cur_speed = drag_inertia.magnitude;
+            var cur_speed = inertia.magnitude;
             var     speed = math.clamp(cur_speed - mouse_drag_slowdown * deltaTime, 0, mouse_drag_max_speed);
-            drag_inertia *= speed / cur_speed;
+            inertia *= speed / cur_speed;
         }
         void update_view      () {
             transform.localPosition = position.to_v3_x0y();
@@ -86,6 +86,6 @@ namespace Hyperway {
         }
         
         bool is_not_dragged         => !is_dragged;
-        bool drag_inertia_not_faded => drag_inertia.sq_magnitude > 0.0001f;
+        bool drag_inertia_not_faded => inertia.sq_magnitude > 0.0001f;
     }
 }

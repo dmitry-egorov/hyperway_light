@@ -1,6 +1,6 @@
-using Common;
 using Unity.Mathematics;
 using UnityEngine;
+using static Hyperway.entity_type.type;
 using static Hyperway.hyperway;
 using Random = Unity.Mathematics.Random;
 
@@ -15,17 +15,15 @@ namespace Hyperway.unity {
         public go prefab;
 
         public void Start() {
-            ref var type = ref entities.new_entity_type();
-            type.make_scenery_type(count);
+            ref var type = ref _entities[scenery];
 
             var min_pos = new float2(1, 1) * -range;
             var max_pos = new float2(1, 1) *  range;
+            var random  = new Random(seed);
+            type.make_random_sceneries(ref random, count, min_pos, max_pos);
 
             for (var i = 0; i < count; i++)
                 type.transform[i] = Instantiate(prefab).transform;
-
-            var random = new Random(seed);
-            type.make_random_sceneries(ref random, min_pos, max_pos);
         }
     }
 }

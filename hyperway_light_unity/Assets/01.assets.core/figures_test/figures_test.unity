@@ -152,11 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926798d16e4447c0afb4ca3c773607c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 100
+  count: 250
   seed: 42
-  range: 10
-  min_speed: -0.04
-  max_speed: 0.04
+  range: 30
+  min_speed: -0.08
+  max_speed: 0.08
   prefab: {fileID: 2928695510293662113, guid: 0b3de9052faf84bbc8e2c90b80c6fcd4, type: 3}
 --- !u!4 &29006815
 Transform:
@@ -201,9 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d9ed9f27f04de8a457f548302afc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 50
+  count: 500
   seed: 43
-  range: 10
+  range: 40
   prefab: {fileID: 2928695510293662113, guid: 41b76130b1f4645e3828da929e3f2bb9, type: 3}
 --- !u!4 &285236764
 Transform:

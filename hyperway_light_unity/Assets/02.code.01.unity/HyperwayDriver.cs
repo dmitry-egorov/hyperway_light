@@ -22,14 +22,14 @@ namespace Hyperway.unity {
         static void Load() => check_or_create_singleton(ref instance);
         static HyperwayDriver instance;
 
-        #if UNITY_EDITOR
         void Awake() {
-            hyperway = _data = new box<hyperway>();
+            _data = hyperway ??= new box<hyperway>();
+            _hyperway.init();
         }
-        #endif
 
         void Update() {
             if (!initialized) {
+                _data ??= hyperway;
                 _hyperway.start();
                 initialized = true;
             }

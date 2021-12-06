@@ -2,6 +2,10 @@ using static Utilities.Profiling.profiler_ex;
 
 namespace Hyperway {
     public partial struct hyperway {
+        public void init() {
+            entities.init();
+        }
+        
         public void start() {
               random.start();
               camera.start();

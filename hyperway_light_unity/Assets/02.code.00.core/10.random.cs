@@ -8,16 +8,16 @@ namespace Hyperway {
     
     public partial struct random {
         public void start() {
-            generator = new Random(initial_seed);
+            rand = new Random(initial_seed);
         }
         
-        public offset2 next_velocity(                      ) => generator.next_velocity();
-        public offset2 next_velocity(            float2 max) => generator.next_velocity(max);
-        public offset2 next_velocity(float2 min, float2 max) => generator.next_velocity(min, max);
+        public offset2 next_velocity(                      ) => rand.next_velocity();
+        public offset2 next_velocity(            float2 max) => rand.next_velocity(max);
+        public offset2 next_velocity(float2 min, float2 max) => rand.next_velocity(min, max);
         
-        public  point2 next_position(                      ) => generator.next_position();
-        public  point2 next_position(            float2 max) => generator.next_position(max);
-        public  point2 next_position(float2 min, float2 max) => generator.next_position(min, max);
+        public  point2 next_position(                      ) => rand.next_position();
+        public  point2 next_position(            float2 max) => rand.next_position(max);
+        public  point2 next_position(float2 min, float2 max) => rand.next_position(min, max);
     }
     
     public static partial class random_ext {

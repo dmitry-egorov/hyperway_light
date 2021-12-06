@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Utilities.Collections {
     public static class arr_ext {
+        public static void ensure_capacity<t>(ref t[] arr, int capacity) {
+            if (arr == null) { arr = new t[capacity]; return; }
+            if (arr.Length < capacity) Array.Resize(ref arr, capacity);
+        }
         public static void expand<t>(ref t[] arr, int count) {
             if (arr == null)
                 arr = new t[count];

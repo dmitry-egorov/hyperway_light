@@ -1,4 +1,3 @@
-using Common;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
@@ -31,7 +30,6 @@ namespace Hyperway.unity {
             _camera.mouse_drag_max_speed = camera_mouse_max_speed;
             _camera.mouse_drag_slowdown  = camera_mouse_slowdown;
         }
-
 
         [UsedImplicitly] bool playing => Application.isPlaying;
     }
