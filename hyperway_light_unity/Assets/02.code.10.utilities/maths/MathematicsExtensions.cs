@@ -17,6 +17,8 @@ namespace Utilities.Maths {
         public static Vector3 _00z(this Vector3 v3) => new Vector3(0, 0, v3.z);
 
         public static float2 to_f2(this Vector2 v2) => v2;
+
+        public static float3 x0y(this float2 f2) => new float3(f2.x, 0, f2.y);
         
         public static Quaternion rotation_to(this Vector3 v0, Vector3 v1, Vector3 fallback_axis = default) {
             // Based on Stan Melax's article in Game Programming Gems

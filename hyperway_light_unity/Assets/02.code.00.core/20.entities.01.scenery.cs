@@ -1,5 +1,5 @@
 using Unity.Mathematics;
-using static Utilities.Assets.assert_ex;
+using static Lanski.Utilities.assertions.assert_ex;
 
 namespace Hyperway {
     public partial struct entity_type {

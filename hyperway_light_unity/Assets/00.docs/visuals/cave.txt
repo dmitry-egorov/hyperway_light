@@ -1,0 +1,6 @@
+- cave is rendered at half height
+- the walls are rendered as sliced horizontally,
+- the slices lose color and fade away from the cave
+
+- the cave walls have tiny lights on them
+  - stones reacting to the storms on the surface

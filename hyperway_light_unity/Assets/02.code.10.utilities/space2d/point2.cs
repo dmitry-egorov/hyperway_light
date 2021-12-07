@@ -11,7 +11,7 @@ namespace Common.spaces {
 
         public float distance_to(point2 other) => math.distance(vec, other.vec);
         public point2 lerp(point2 other, float ratio) => math.lerp(vec, other.vec, ratio);
-        public Vector3 to_v3_x0y() => new Vector3(vec.x, 0, vec.y);
+        public Vector3 x0y_v3() => new Vector3(vec.x, 0, vec.y);
         public Vector3 to_v3_xy0() => new Vector3(vec.x, vec.y, 0);
 
         public static implicit operator point2(float2  f2) => new point2 { vec = f2 };

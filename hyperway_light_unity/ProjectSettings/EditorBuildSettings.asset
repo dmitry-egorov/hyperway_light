@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01.assets.core/figures_test/figures_test.unity
+    path: Assets/01.assets.scenes/figures_test/figures_test.unity
     guid: 0555504f83e7d4e248be8e69bdad63e7
   - enabled: 1
-    path: Assets/02_game/hyperway_common.unity
+    path: Assets/01.assets.scenes/common.unity
     guid: 401ae413a82914ed380b43cc554ad5dc
+  - enabled: 1
+    path: Assets/01.assets.scenes/scenario_mobile_ui/scenario_mobile_ui.unity
+    guid: 076d63126963a497cbed2b917c0b4f73
   m_configObjects: {}

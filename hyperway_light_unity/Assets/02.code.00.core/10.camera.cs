@@ -27,7 +27,7 @@ namespace Hyperway {
             update_view();
         }
         
-        void keep_constant_fov() {
+        void keep_constant_fov() { 
             fov = 2.0f * Atan(height / dpi * 0.5f / fov_distance) * Rad2Deg;
         }
         void move_with_keys   () {
@@ -81,7 +81,7 @@ namespace Hyperway {
             inertia *= speed / cur_speed;
         }
         void update_view      () {
-            transform.localPosition = position.to_v3_x0y();
+            transform.localPosition = position.x0y_v3();
             unity_cam.fieldOfView = fov;
         }
         

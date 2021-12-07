@@ -8,7 +8,7 @@ gameplay:
 
 extra gameplay:
 - the nearest city sends some relief after some time
-  - can't send it a second time, because they're preparing for a storm lockdown
+  - sends a few times, then the 'storms get worse'
 - food preservation policy
   - decreases food consumption
   - reduces happiness and health

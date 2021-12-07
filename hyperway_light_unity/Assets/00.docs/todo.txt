@@ -1,6 +1,6 @@
 - buildings
 - resources
-- buildings store resources
+- buildings store   resources
 - buildings consume resources
 - buildings produce resources
 - resources panel

@@ -10,13 +10,20 @@ namespace Hyperway {
               random.start();
               camera.start();
             entities.start();
+            
+               stats.start();
+            
+            ui_scenario.start();
         }
 
         public void update() {
             mouse.update();
             
+            runtime.complete_jobs();
             runtime.run_sim(ref this, (ref hyperway _) => _.update_simulation   ());
             runtime.run_vis(ref this, (ref hyperway _) => _.update_visualisation());
+            
+            stats.update();
 
             mouse.reset();
         }
