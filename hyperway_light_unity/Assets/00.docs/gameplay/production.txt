@@ -1,0 +1,29 @@
+- batch starts producing when all the requirements are met
+- allow overflow? (no for now)
+- factories can set production recipes (can have different cost/output/time)
+
+- recipes has allowed building type? (instead of building having a fixed recipe)
+
+- resources should be produced in batches:
+  - produce x resources every y ticks
+  - should the buildings have individual ticks or shared?
+  - probably individual, since production consumes resources (no resources -> no tick)
+  - the batch should specify:
+    - amount of resources produced
+    - time to produce
+    - required resource to produce
+  - does the producer consume resources continuously or once per batch?
+    - the difference is only in fractions
+
+
+
+e.g.
+  - mine produces 10 matter every 10 seconds for 2 energy
+    - consume:
+      + at the start of production
+      - (no) 1 energy at the start, 1 energy after 5 seconds
+      
+      
+same as:
+  - Caesar 3, K&M: batch has input, all of it is consumed to make the output
+

@@ -1,0 +1,3 @@
+- technology is researched by scientists
+- technology can be applied to a building (for a cost), giving bonuses
+- some technologies have drawbacks

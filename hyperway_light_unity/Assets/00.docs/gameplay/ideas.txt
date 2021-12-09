@@ -1,0 +1,4 @@
+- drag to build multiple buildings of the same type (in build mode, when a building is selected)
+
+
+- technology can have tradeoffs and can be selected individually on buildings

@@ -1,0 +1,4 @@
+- the planet surface has constant electric storms
+- the light in the cave comes from the luminescent stones capturing the storms energy
+- player can be plants harnessing the energy of the storm
+- the storms get critical at times, disabling an energy production and making a cool visual effect (stones and lights are blinking in waves)

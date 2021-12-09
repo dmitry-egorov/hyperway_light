@@ -1,6 +1,12 @@
-- buildings
-- resources
-- buildings store   resources
-- buildings consume resources
-- buildings produce resources
-- resources panel
++ buildings
++ resources
++ buildings store   resources
++ buildings produce resources
++ buildings consume resources
++ resources panel
++ consume and produce in batches
+  + when the requirements are met, the building starts producing
+  + remove regular producing and consuming (later implement it for temperature and health)
+- move capacity to building type
+- consume/produce multiple types
+- global resources: energy, water

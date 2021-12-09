@@ -1,0 +1,6 @@
+- bots consume energy from the grid
+- if energy is not available, they're greatly slowed down
+
+
+
+- interesting effect, when the whole city slows down due to lack of energy

@@ -1,0 +1,3 @@
+power generators:
+  - storm     : power from the surface storms
+  - geothermal: power from the underwater vents

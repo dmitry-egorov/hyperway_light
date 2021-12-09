@@ -1,0 +1,19 @@
+- global resources: water and energy, delivered by the grid
+
+- resource slots:
+  - limit total number of slots
+  - limit allowed types per slot
+    - either a single type per slot
+    - a list of types per slot
+    - a predicate for resource type (if resources have properties)
+
+1 cartload == 100 units
+- warehouse
+  - 8 slots, 4 cartloads each, all types are allowed
+
+- granery
+  - 6 slots, 4 cartloads each, only food types are allowed
+  
+- house
+  - 8 slots, each has a specific type, 8 units for goods, 8 cartloads for food
+  

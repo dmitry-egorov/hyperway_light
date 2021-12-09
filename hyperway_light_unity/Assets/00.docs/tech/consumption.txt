@@ -1,0 +1,6 @@
+- houses have consumption progress
+  - it's a countdown to zero
+  - when the countdown is complete, the resource is consumed
+  - countdown only happens when there are people in the house 
+    - some products decay on their own (e.g. food spoils)
+  - while counting down, the resource has its effect (food restores hunger etc.) 

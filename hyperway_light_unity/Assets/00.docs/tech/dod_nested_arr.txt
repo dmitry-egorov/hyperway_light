@@ -1,0 +1,87 @@
+e.g. entity references an array of stored resources:
+
+batch: (type, amount)
+
+entity_type:
+1. nested array {
+    stored_arr: batch[entities.count][] // not supported by native array
+    
+    other[ec]    stored[ec][]
+    ...          ([ (t11, a11), ...])
+    ...          ([ (t21, a21), ...])
+}
+
+2. outer array (must be fixed length per entity type {
+    batch[][entities.count]        
+    
+    other[ec]   stored[][ec]
+                [stored[ec],   stored[ec]  ...] 
+    ...         (t11, a11)     ...         ...
+    ...         (t21, a21)     ...         ...
+}
+
+3. nested fixed size array {
+    batch[entities.count][n]
+    
+    other[ec]    stored[ec][n] 
+    ...          ([ (t11, a11), ...]n)
+    ...          ([ (t21, a21), ...]n)
+}
+
+4. outer fixed size array {
+    batch[n][entities.count]
+    
+    other[ec]   stored[n][ec]
+                [stored[ec],   stored[ec]  ...]n 
+    ...         (t11, a11)     ...         ...
+    ...         (t21, a21)     ...         ...
+}
+
+5. nested fixed array of every type {
+    amount[entities.count][type.count]
+    
+    other[ec]    stored[ec][tc] 
+    ...          ([a11, ...]tc)
+    ...          ([a21, ...]tc)
+}
+
+6. outer fixed array of every type {
+    amount[type.count][entities.count]
+
+    other[ec]   stored[tc][ec]
+                [stored[ec],   stored[ec]  ...]tc
+    ...          a11           ...         ...
+    ...          a21           ...         ...
+}
+
+7. nested fixed array of subset of types (subset interpreted per entity or entity type or building type) {
+    amount[entities.count][types_subset.count]
+    
+    other[ec]    stored[ec][tsc] 
+    ...          ([a11, ...]tsc)
+    ...          ([a21, ...]tsc)
+}
+
+8. outer fixed array of subset of types (needs multiple entity_types) {
+    amount[types_subset.count][entities.count]
+
+    other[ec]   stored[tsc][ec]
+                [stored[ec],   stored[ec]  ...]tsc
+    ...          a11           ...         ...
+    ...          a21           ...         ...
+}
+
+9. pointer to batch arrays of different sizes, packed in sequence
+(->batch[n])[entities.count]
+
+10. can have different arrays in the entity_type for different types of entities (or types of buildings) 
+  - requires multiple archetypes
+
+- can use multiple ways, especially for constant data or for different archetypes
+  - e.g. mines have fixed size arrays, houses have outer fixed type.count arrays
+  
+- probably need to implement storage slots
+  - limited number of different resource types
+  - filter for allowed resource types
+  - somewhat similar to Caesar
+

@@ -1,1 +1,0 @@
-- drag to build multiple buildings of the same type (in build mode, when a building is selected)
