@@ -2,7 +2,7 @@ using Common;
 using UnityEngine;
 using static Hyperway.hyperway;
 
-namespace Hyperway.unity {
+namespace Hyperway {
     [after(typeof(HyperwayConfig))]
     public class CameraRigMarker : MonoBehaviour {
         public void Start() {

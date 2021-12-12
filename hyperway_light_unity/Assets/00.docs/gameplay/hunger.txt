@@ -1,0 +1,28 @@
+- start simple:
+  - house (family) has hunger level
+  - regularly, hunger level is increased by 1
+  - family consumes 1 food if their hunger level is above 1
+  - if the hunger level reaches 3, the family dies
+
+integral:
+  if (has_food) consume food
+  else          consume population (how many?)
+
+individual:
+  - person has health
+  - periodically he needs to consume food or he takes damage
+  - when the health is zero, he dies
+  more details:
+  - hunger increases periodically
+  - after each increase
+    - if hunger = max -> take 1 damage
+  - each food consumptions resets the hunger to zero
+    
+  impl:
+    health_max          // maximum health
+    health              // current health
+    hunger
+
+    hunger_max          // maximum hunger
+    hunger_cd           // hunger increase cooldown
+    hunger_eating_level // amount of hunger when the person starts looking for food 

@@ -6,7 +6,7 @@ using UnityEngine;
 using static UnityEngine.RuntimeInitializeLoadType;
 using static Utilities.Runtime.persistent;
 
-namespace Hyperway.unity {
+namespace Hyperway {
     using no_save = NonSerializedAttribute;
     using head = HeaderAttribute; using gray = DisableIfAttribute; using show = ShowIfAttribute; using name = LabelAttribute; using line = HorizontalLineAttribute;
 

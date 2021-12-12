@@ -1,0 +1,6 @@
+- specialisations can be on a family level
+- a building can require one or more families assigned to them
+
+Specialisations (like Theme Hospital):
+  - scientist, engineer, administrator, doctor, worker
+    - depends on the education level and practice level

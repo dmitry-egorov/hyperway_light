@@ -1,0 +1,2 @@
+- the game is split into day and night cycle
+- 24h

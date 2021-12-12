@@ -1,0 +1,7 @@
+separate the concept of resource loads and individual items
+
+resource loads
+  - stored in storages and consumed by production buildings
+items
+  - stored in inventory slots
+  - can be split from loads

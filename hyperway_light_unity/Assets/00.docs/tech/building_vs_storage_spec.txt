@@ -1,0 +1,8 @@
+- should building type exist at runtime? serialized?
+- or only storage spec?
+
+- can automagically create storage specs from building types, but what about serialization?
+
+- is separate storage spec actually faster?
+  - pro: less data to load
+  - con: indirection

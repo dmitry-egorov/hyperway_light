@@ -1,0 +1,15 @@
+requires:
++ resources
+  + matter
+  + food
++ mines
+  + produce matter
++ houses
+  - consume food
+- population
+- starvation
+- build ui
+  - select a building type
+  - highlights available spots
+  - place a building
+  - building construction

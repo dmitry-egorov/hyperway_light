@@ -1,0 +1,12 @@
+- in the first iteration implements as part of a house
+
+- makes sense to make it a separate archetype for now
+
+archetype
+  - separate archetype + entity for rendering
+    - entity references the person and vice versa
+    - will need to have disabled entities, probably a lot of them
+  - entity archetype
+  
+  
+- people are often inside buildings and so don't need the entity part

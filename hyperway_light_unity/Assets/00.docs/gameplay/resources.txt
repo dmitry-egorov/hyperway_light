@@ -1,5 +1,7 @@
 - global resources: water and energy, delivered by the grid
 
+- don't implement resource units yet, just use loads?
+
 - resource slots:
   - limit total number of slots
   - limit allowed types per slot
@@ -7,7 +9,7 @@
     - a list of types per slot
     - a predicate for resource type (if resources have properties)
 
-1 cartload == 100 units
+1 load == 100 units
 - warehouse
   - 8 slots, 4 cartloads each, all types are allowed
 

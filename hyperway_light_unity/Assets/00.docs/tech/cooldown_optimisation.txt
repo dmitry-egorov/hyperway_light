@@ -1,0 +1,49 @@
+- can make some checks every few frames
+- can check a few entities each frame
+
+
+global timer check instead of writing remaining
+- n = global tick number
+- s = start time
+- c = cooldown
+- predicate: (n + o) % c = 0
+
+reset: s = n
+check: n - s >= c
+
+
+
+
+
+
+
+
+
+a queue of events
+  - nodes:
+    - skip_time
+    - do_event:
+      - for each type of event?
+      - list of ids of entities that need to do something on this frame
+  - modification
+    - insert event:
+      - find a place in the queue, where the event needs to be inserted
+    - process queue:
+      - take the first node
+        - if skip_time
+          - reduce cooldown
+          - if cooldown is zero -> pop the node
+        - if do_event
+          - take all entities and apply functions to them
+          - pop the node
+
+
+queue impl
+  - linked list
+    - fast insert
+    - fast head
+    - slow lookup
+  - tree
+    - fast insert
+    - slow head
+    - fast lookup

@@ -1,27 +1,40 @@
 using System;
 using Common;
+using Lanski.Utilities.assertions;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Utilities.Collections;
 using static Hyperway.hyperway;
 
-namespace Hyperway.unity {
+namespace Hyperway {
+    using    save =  SerializableAttribute;
     using no_save = NonSerializedAttribute;
-    
+    using     u16 = UInt16;
+
     [after(typeof(ScenarioConfig))]
     public class BuildingType : MonoBehaviour {
-        public batch_u16[] storage_capacity;
-        public batch2_u16 production_cost;
-        public batch2_u16 production_product;
-        [FormerlySerializedAs("required_ticks")] public ushort production_ticks;
+        public storage_spec_id id;
 
-        [no_save] public building_type_id id; // set by ScenarioConfig
+        public bool houses_people;
+        public ResourceLoad[] storage_capacity;
+        public ProductionType production_type;
 
         void Start() {
-            //TODO: use all the costs and products
-            _buildings.storage_capacity_arr [id] = storage_capacity;
-            _buildings.production_input_arr [id] = production_cost;
-            _buildings.production_output_arr[id] = production_product;
-            _buildings.production_ticks_arr [id] = production_ticks;
+            (storage_capacity.Length <= 8).assert();
+            var slots_count = (byte)storage_capacity.Length;
+            _storage_specs.slot_count_arr[id] = slots_count;
+            
+            ref var slot_types = ref _storage_specs.slots_type_arr.@ref(id);
+            ref var slot_caps  = ref _storage_specs.slots_cap_arr .@ref(id);
+            for (byte i = 0; i < slots_count; i++) {
+                var cap = storage_capacity[i];
+                slot_types.@ref(i) = cap.type;
+                slot_caps .@ref(i) = cap.amount;
+            }
         }
+    }
+
+    public static partial class hyperway {
+        [InlineProperty(LabelWidth = 1)] public partial struct storage_spec_id { }
     }
 }

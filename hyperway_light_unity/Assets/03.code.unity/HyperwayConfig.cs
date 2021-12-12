@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using static Hyperway.hyperway;
 
-namespace Hyperway.unity {
+namespace Hyperway {
     using head = HeaderAttribute; using gray = DisableIfAttribute; using show = ShowIfAttribute; using name = LabelAttribute; using line = HorizontalLineAttribute;
 
     public class HyperwayConfig: MonoBehaviour {

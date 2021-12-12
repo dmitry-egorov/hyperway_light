@@ -1,0 +1,5 @@
+- the flying ship internals are similar to cave cities
+- you get to build up the internals of the ship
+- only essential ship parts are built at the start of the journey
+
+- can build cities alongside the path of the ship
