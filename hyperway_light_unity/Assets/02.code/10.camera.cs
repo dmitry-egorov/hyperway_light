@@ -4,6 +4,7 @@ using Lanski.Plugins.Persistance;
 using Unity.Mathematics;
 using UnityEngine;
 using Utilities.Maths;
+using static Common.spaces.offset2;
 using static UnityEngine.Input;
 using static UnityEngine.KeyCode;
 using static UnityEngine.Mathf;
@@ -55,11 +56,11 @@ namespace Hyperway {
             void move_with_keys   () {
                 if (anyKey) {} else return;
                     
-                var dir = offset2.zero; var move = false;
-                if (keys(A, LeftArrow )) {dir  = offset2.left  + offset2.up   ; move = true; }
-                if (keys(D, RightArrow)) {dir += offset2.right + offset2.down ; move = true; }
-                if (keys(W, UpArrow   )) {dir += offset2.up    + offset2.right; move = true; }
-                if (keys(S, DownArrow )) {dir += offset2.down  + offset2.left ; move = true; }
+                var dir = zero; var move = false;
+                if (keys(A, LeftArrow )) {dir  = left  + up   ; move = true; }
+                if (keys(D, RightArrow)) {dir += right + down ; move = true; }
+                if (keys(W, UpArrow   )) {dir += up    + right; move = true; }
+                if (keys(S, DownArrow )) {dir += down  + left ; move = true; }
                     
                 if (move) {} else return;
 
@@ -70,7 +71,7 @@ namespace Hyperway {
             }
             
             void drag_with_mouse  () {
-                if (down         ()) { inertia =  offset2.zero; }
+                if (down         ()) { inertia =  zero; }
                 if (drag_started ()) { is_dragged   =  true; } // TODO: ensure the mouse was not over UI when mouse button was down
                 if (drag_finished()) { is_dragged   = false; }
                     
@@ -96,7 +97,7 @@ namespace Hyperway {
             
             void apply_inertia    () {
                 if (is_not_dragged) {} else return;
-                if (drag_inertia_not_faded) {} else { inertia = offset2.zero; return; }
+                if (drag_inertia_not_faded) {} else { inertia = zero; return; }
 
                 position += inertia * deltaTime;
 

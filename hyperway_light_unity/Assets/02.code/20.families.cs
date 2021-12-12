@@ -17,6 +17,9 @@ namespace Hyperway {
                 if (props.all(houses)) {} else return;
                 result += (u16)occupied_arr.CountBits(0, count);
             }
+
+            public bool is_occupied(entity_id id) => occupied_arr.IsSet(id);
+            public void reset_occupied(entity_id id) => occupied_arr.Set(id, false);
         }
 
         public partial struct stats {

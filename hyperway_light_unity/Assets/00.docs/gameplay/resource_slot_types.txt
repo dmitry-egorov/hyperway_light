@@ -1,0 +1,8 @@
+per slot:
+- single specific type
+- single type constrained by a filter
+- multi-type slot constrained by a filter
+
+- all can be simulated with single-type constrained by filter
+  - single specific type -> the filter is the specific type
+  - multi-type -> many single-types (more than fixed 8, probably)

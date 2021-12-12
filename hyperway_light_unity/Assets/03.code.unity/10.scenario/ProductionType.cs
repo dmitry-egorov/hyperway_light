@@ -15,9 +15,9 @@ namespace Hyperway {
     public class ProductionType : MonoBehaviour {
         public prod_spec_id id;
 
-        [prev("production_input" )] public Load[] @in;
-        [prev("production_output")] public Load[] @out;
-        [prev("production_ticks" )] public  u16   ticks;
+        public Load[] @in;
+        public Load[] @out;
+        public  u16   ticks;
 
         void Start() {
             (@in.Length <= 8 && @out.Length <= 8).assert();

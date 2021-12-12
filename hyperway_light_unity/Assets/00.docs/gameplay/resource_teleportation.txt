@@ -1,0 +1,10 @@
+- some resource are teleported instantly from storages to consumers
+  - e.g. energy, water
+  - all resources in the first implementation
+
+
+implementation
+-  storages have "distributes flag"
+- consumers have "consumes flag"
+
+

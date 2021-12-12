@@ -9,6 +9,7 @@ using static Hyperway.hyperway;
 using static Lanski.Utilities.constants.consts;
 
 namespace Hyperway {
+    using spec_id = prod_spec_id;
     using slot_id = storage_slot_id;
     using u16 = UInt16;
     using slot_types_8 = fixed_arr_8<res_id>;
@@ -24,11 +25,11 @@ namespace Hyperway {
         [save] public partial struct prod_spec_id {
             public byte value;
             
-            public static readonly prod_spec_id none      = u8_max;
-            public static readonly prod_spec_id max_count = u8_max - 1;
+            public static readonly spec_id none      = u8_max;
+            public static readonly spec_id max_count = u8_max - 1;
             
-            public static implicit operator byte(prod_spec_id i) => i.value;
-            public static implicit operator prod_spec_id(byte b) => new prod_spec_id {value = b};
+            public static implicit operator byte(spec_id i) => i.value;
+            public static implicit operator spec_id(byte b) => new spec_id {value = b};
         }
         
         [save] public partial struct prod_specs {
@@ -49,13 +50,11 @@ namespace Hyperway {
         }
         
         public partial struct entity_type {
-            [scenario] public ps_arr  prod_spec_arr;             // production spec id
+            [scenario] public ps_arr  prod_spec_id_arr;             // production spec id
             [savefile] public u16_arr prod_ticks_arr;            // ticks till the production finishes
             
-            public void production_fields() {
-                req(produces, ref prod_spec_arr, ref prod_ticks_arr);
-            }
-            
+            public void production_fields() => req(produces, ref prod_spec_id_arr, ref prod_ticks_arr);
+
             public void produce() {
                 if (all(produces)) {} else return;
 
@@ -64,8 +63,8 @@ namespace Hyperway {
                 var   out_arr = _prod_specs. out_resources_arr;
 
                 for (ushort entity = 0; entity < count; entity++) {
-                    var p_type  = prod_spec_arr[entity];
-                    if (p_type != prod_spec_id.none) {} else continue;
+                    var spec_ud  = prod_spec_id_arr[entity];
+                    if (spec_ud != spec_id.none) {} else continue;
 
                     ref var remaining = ref prod_ticks_arr.@ref(entity);
                     if (remaining > 1) { // progress production
@@ -73,23 +72,24 @@ namespace Hyperway {
                         continue;
                     }
 
-                    var out_count =     out_arr.counts    [p_type];
-                    ref var out_loads = ref out_arr.loads.@ref(p_type);
+                        var out_count =     out_arr.counts    [spec_ud];
+                    ref var out_loads = ref out_arr.loads.@ref(spec_ud);
                     if (remaining == 1) { // finish production
-                        add_overflow(entity, out_loads, out_count);
+                        var overflow = add(entity, out_loads, out_count);
+                        overflow.all(0).assert();
+                        
                         remaining = 0;
                         continue;
                     }
 
                     (remaining == 0).assert(); { // check required resources and start production
-                        var in_count =     in_arr.counts    [p_type];
-                        ref var in_loads = ref in_arr.loads.@ref(p_type);
+                            var in_count =     in_arr.counts    [spec_ud];
+                        ref var in_loads = ref in_arr.loads.@ref(spec_ud);
                         
-                        if (has_space_for(entity, out_loads, out_count)) {} else continue; // don't start production if there's no empty space in the storage
-                        if (has_amount   (entity,  in_loads,  in_count)) {} else continue; // don't start production if there's not enough resources
+                        if (has_space(entity, out_loads, out_count)) {} else continue; // don't start production if there's no empty space for the output
+                        if (try_sub  (entity,  in_loads,  in_count)) {} else continue; // don't start production if there's not enough resources
 
-                        sub(entity, in_loads, in_count);
-                        remaining = ticks_arr[p_type];
+                        remaining = ticks_arr[spec_ud];
                     }
                 }
             }

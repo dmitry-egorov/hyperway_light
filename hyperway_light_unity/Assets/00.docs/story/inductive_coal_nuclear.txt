@@ -1,0 +1,5 @@
+- using inductive power plants initially
+- storms get quite, so have to switch to coal
+- last on coal (for a few missions), until uranium deposit is found, and you start to build nuclear reactors
+
+- alternativele storms get worse and electrnics are dead, so have to rely on steam power or oil for awhile

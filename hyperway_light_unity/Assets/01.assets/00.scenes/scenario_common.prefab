@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 0
+  isFood: 0
 --- !u!1 &887862637610213220
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 2
+  isFood: 0
 --- !u!1 &1284261656359525497
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 3
+  isFood: 1
 --- !u!1 &4619083509549847378
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 1
+  isFood: 0
 --- !u!1 &6638052164604567397
 GameObject:
   m_ObjectHideFlags: 0

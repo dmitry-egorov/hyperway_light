@@ -9,8 +9,12 @@
   + remove regular producing and consuming (later implement it for temperature and health)
 + move capacity to building type
 + consume/produce multiple types
-- families
-- houses consume food
++ families
++ houses consume food
++ is_food flag for resources
+- storage
+  * resource constraints on slots + specific stored types
+- teleport resources
 
 - global resources: e.g. energy, water, can be set by a scenario
  

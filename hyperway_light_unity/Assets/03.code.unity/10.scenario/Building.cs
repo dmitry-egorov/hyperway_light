@@ -28,39 +28,36 @@ namespace Hyperway {
             var storage_id = btype == null ? storage_spec_id.none : btype.id;
             var prod_id    = btype == null || btype.production_type == null ? prod_spec_id.none : btype.production_type.id;
             
-            var slot_types = _storage_specs.slots_type_arr[storage_id];
-            var slot_amounts = new u16_8();
+            var entity_id = type.add_building(transform, storage_id, prod_id, btype.houses_people);
             foreach (var load in initial_resources) {
-                var i = slot_types.index_of(load.type);
-                if (i == storage_slot_id.none)
-                    throw new err("Storage slot not found for type " + load.type);
-                slot_amounts[i] = load.amount;
+                var overflow = type.add(entity_id, load);
+                (overflow == 0).assert("Initial resources exceed capacity");
             }
-
-            type.add_building(transform, slot_amounts, storage_id, prod_id, btype.houses_people);
         }
     }
 
     public static partial class hyperway {
         public partial struct entity_type {
-            public void add_building(Transform trans, u16_8 stored, storage_spec_id bspec, prod_spec_id pspec, bool houses) {
+            public entity_id add_building(Transform trans, storage_spec_id bspec, prod_spec_id pspec, bool houses) {
                 var i = count;
                 count++;
                 (count <= capacity).else_fail();
             
                 trans_arr.Add(trans);
             
-                curr_pos_arr            [i] = trans.localPosition.xz();
-                storage_spec_arr        [i] = bspec;
-                storage_slots_amount_arr[i] = stored;
+                curr_pos_arr          [i] = trans.localPosition.xz();
+                storage_spec_arr      [i] = bspec;
+                storage_slots_type_arr.@ref(i).set(res_id.none);
 
-                if (prod_spec_arr.IsCreated) {
-                    prod_spec_arr[i] = pspec;
+                if (prod_spec_id_arr.IsCreated) {
+                    prod_spec_id_arr[i] = pspec;
                 }
 
                 if (houses) {
                     occupied_arr.Set(i, true);
                 }
+
+                return i;
             }
         }
         

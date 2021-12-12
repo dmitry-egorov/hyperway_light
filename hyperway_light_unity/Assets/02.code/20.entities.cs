@@ -124,6 +124,7 @@ namespace Hyperway {
                   movement_fields();
                    storage_fields();
                 production_fields();
+                    family_fields();
                     hunger_fields();
             }
             

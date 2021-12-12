@@ -114,6 +114,7 @@ namespace Utilities.Collections {
 
         public void reset() => item0 = item1 = item2 = item3 = item4 = item5 = item6 = item7 = default;
         public void   set(t value) => item0 = item1 = item2 = item3 = item4 = item5 = item6 = item7 = value;
+        public bool   all(t value) => item0.Equals(value) && item1.Equals(value) && item2.Equals(value) && item3.Equals(value) && item4.Equals(value) && item5.Equals(value) && item6.Equals(value) && item7.Equals(value);
     }
 
     public static class fixed_arr_8_ext {
