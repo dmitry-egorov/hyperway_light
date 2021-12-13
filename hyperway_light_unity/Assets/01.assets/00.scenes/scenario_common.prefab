@@ -47,10 +47,10 @@ MonoBehaviour:
     value: 1
   housesPeople: 0
   storageSlots:
-  - type: 0
+  - filter: 0
     resource: {fileID: 5843211096467573558}
     capacity: 16
-  - type: 0
+  - filter: 0
     resource: {fileID: 3416390284728993867}
     capacity: 16
   productionType: {fileID: 4096528449099927905}
@@ -245,10 +245,10 @@ MonoBehaviour:
     value: 2
   housesPeople: 1
   storageSlots:
-  - type: 0
+  - filter: 0
     resource: {fileID: 5076891611632039556}
     capacity: 8
-  - type: 2
+  - filter: 2
     resource: {fileID: 3416390284728993867}
     capacity: 8
   productionType: {fileID: 0}
@@ -354,6 +354,78 @@ MonoBehaviour:
     scenePath: Assets/01.assets/00.scenes/scenario_mobile_ui/scenario_mobile_ui.unity
   - sceneAsset: {fileID: 102900000, guid: 401ae413a82914ed380b43cc554ad5dc, type: 3}
     scenePath: Assets/01.assets/00.scenes/common.unity
+--- !u!1 &4297001794243695853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3527098567914700572}
+  - component: {fileID: 7454383335476101593}
+  m_Layer: 0
+  m_Name: storage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3527098567914700572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297001794243695853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2355660342057686075}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7454383335476101593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297001794243695853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16da045047154867bee8319d89403e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    value: 3
+  housesPeople: 0
+  storageSlots:
+  - filter: 1
+    resource: {fileID: 5076891611632039556}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  - filter: 1
+    resource: {fileID: 3416390284728993867}
+    capacity: 4
+  productionType: {fileID: 0}
 --- !u!1 &4319534608243291884
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,10 +603,10 @@ MonoBehaviour:
     value: 0
   housesPeople: 0
   storageSlots:
-  - type: 0
+  - filter: 0
     resource: {fileID: 5843211096467573558}
     capacity: 16
-  - type: 0
+  - filter: 0
     resource: {fileID: 4406531001205043288}
     capacity: 16
   productionType: {fileID: 2629775962576950909}
@@ -789,6 +861,7 @@ Transform:
   - {fileID: 7519349498447431162}
   - {fileID: 6295223635727295179}
   - {fileID: 8527143167007812283}
+  - {fileID: 3527098567914700572}
   m_Father: {fileID: 836346044881836006}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
