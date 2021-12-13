@@ -12,6 +12,8 @@
 + families
 + houses consume food
 + is_food flag for resources
++ sub takes a specific type
++ find type method
 - storage
   * resource constraints on slots + specific stored types
 - teleport resources

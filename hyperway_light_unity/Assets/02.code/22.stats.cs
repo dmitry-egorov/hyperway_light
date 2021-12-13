@@ -1,6 +1,5 @@
 using System;
 using Unity.Collections;
-using static Hyperway.hyperway.entity_type_props;
 
 namespace Hyperway {
     using save = SerializableAttribute;

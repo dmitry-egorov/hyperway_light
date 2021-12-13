@@ -7,20 +7,8 @@ namespace Utilities.Collections {
         public t item0, item1;
 
         public t this[byte i] {
-            get {
-                return i switch {
-                    0 => item0
-                    , 1 => item1
-                    , _ => throw new IndexOutOfRangeException()
-                };
-            }
-            set {
-                switch (i) {
-                    case 0: item0 = value; break;
-                    case 1: item1 = value; break;
-                    default: throw new IndexOutOfRangeException();
-                }
-            }
+            get => this.@ref(i);
+            set => this.@ref(i) = value;
         }
 
         public void reset() => item0 = item1 = default;
@@ -43,24 +31,8 @@ namespace Utilities.Collections {
         public t item0, item1, item2, item3;
 
         public t this[byte i] {
-            get {
-                return i switch {
-                    0 => item0
-                    , 1 => item1
-                    , 2 => item2
-                    , 3 => item3
-                    , _ => throw new IndexOutOfRangeException()
-                };
-            }
-            set {
-                switch (i) {
-                    case 0: item0 = value; break;
-                    case 1: item1 = value; break;
-                    case 2: item2 = value; break;
-                    case 3: item3 = value; break;
-                    default: throw new IndexOutOfRangeException();
-                }
-            }
+            get => this.@ref(i);
+            set => this.@ref(i) = value;
         }
 
         public void reset() => item0 = item1 = item2 = item3 = default;
@@ -84,32 +56,8 @@ namespace Utilities.Collections {
         public t item0, item1, item2, item3, item4, item5, item6, item7;
 
         public t this[byte i] {
-            get {
-                return i switch {
-                    0 => item0
-                    , 1 => item1
-                    , 2 => item2
-                    , 3 => item3
-                    , 4 => item4
-                    , 5 => item5
-                    , 6 => item6
-                    , 7 => item7
-                    , _ => throw new IndexOutOfRangeException()
-                };
-            }
-            set {
-                switch (i) {
-                    case 0: item0 = value; break;
-                    case 1: item1 = value; break;
-                    case 2: item2 = value; break;
-                    case 3: item3 = value; break;
-                    case 4: item4 = value; break;
-                    case 5: item5 = value; break;
-                    case 6: item6 = value; break;
-                    case 7: item7 = value; break;
-                    default: throw new IndexOutOfRangeException();
-                }
-            }
+            get => this.@ref(i);
+            set => this.@ref(i) = value;
         }
 
         public void reset() => item0 = item1 = item2 = item3 = item4 = item5 = item6 = item7 = default;

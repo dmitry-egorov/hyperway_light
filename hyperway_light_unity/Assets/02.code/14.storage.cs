@@ -41,8 +41,8 @@ namespace Hyperway {
         [save] public partial struct storage_spec_id {
             public byte value;
             
-            public static readonly storage_spec_id none      = u8_max;
-            public static readonly storage_spec_id max_count = u8_max - 1;
+            public static readonly spec_id none      = u8_max;
+            public static readonly     int max_count = u8_count;
             
             public static implicit operator byte(spec_id i) => i.value;
             public static implicit operator spec_id(byte b) => new spec_id {value = b};
@@ -56,21 +56,16 @@ namespace Hyperway {
             [scenario] public u8_8_arr     slots_cap_arr;    // capacity per slot
 
             public void init() {
-                init(ref slots_count_arr);
-                init(ref slots_filter_arr);
-                init(ref slots_cap_arr );
+                var max = spec_id.max_count;
+                slots_count_arr .init(max);
+                slots_filter_arr.init(max);
+                slots_cap_arr   .init(max);
             }
 
-            void init(ref res_id_8_arr arr) {
-                var types = new res_id_8(); types.set(res_id.none);
-                init<res_id_8>(ref arr); arr.set(types);
-            }
-
-            void init<t>(ref NativeArray<t> arr) where t : struct => arr.init(spec_id.max_count);
-            
-            public           u8 get_slots_count(spec_id spec_id              ) =>     slots_count_arr[spec_id];
-            public ref filter_8 get_filters_ref (spec_id spec_id              ) => ref slots_filter_arr.@ref(spec_id);
-            public          u16 get_cap        (spec_id spec_id, slot_id slot) =>     slots_cap_arr[spec_id][slot];
+            public           u8 get_slots_count(spec_id spec_id              ) =>     slots_count_arr      [spec_id];
+            public ref filter_8 get_filters_ref(spec_id spec_id              ) => ref slots_filter_arr.@ref(spec_id);
+            public       filter get_filter     (spec_id spec_id, slot_id slot) =>     slots_filter_arr.@ref(spec_id)[slot];
+            public          u16 get_cap        (spec_id spec_id, slot_id slot) =>     slots_cap_arr   .@ref(spec_id)[slot];
         }
         
         public partial struct entity_type {
@@ -84,23 +79,27 @@ namespace Hyperway {
             
             public           u8 get_slots_count(entity_id id              ) =>     _storage_specs.get_slots_count(storage_spec_arr[id]);
             public ref filter_8 get_filters_ref(entity_id id              ) => ref _storage_specs.get_filters_ref(storage_spec_arr[id]);
-            public       filter get_filter     (entity_id id, slot_id slot) =>     get_filters_ref(id)[slot];
+            public       filter get_filter     (entity_id id, slot_id slot) =>     _storage_specs.get_filter     (storage_spec_arr[id], slot);
             public          u16 get_cap        (entity_id id, slot_id slot) =>     _storage_specs.get_cap        (storage_spec_arr[id], slot);
-            public ref   res_id get_type_ref   (entity_id id, slot_id slot) => ref storage_slots_type_arr  .@ref(id).@ref(slot);
+            public ref   res_id get_res_ref    (entity_id id, slot_id slot) => ref storage_slots_type_arr  .@ref(id).@ref(slot);
+            public       res_id get_res        (entity_id id, slot_id slot) =>     storage_slots_type_arr  .@ref(id)[slot];
             public ref      u16 get_amount_ref (entity_id id, slot_id slot) => ref storage_slots_amount_arr.@ref(id).@ref(slot);
+            public          u16 get_amount     (entity_id id, slot_id slot) =>     storage_slots_amount_arr.@ref(id)[slot];
                                 
-            public u16 get_total_space(entity_id id, res_id res_id) {
+            public u16 get_total_space(entity_id id, res_id res) {
+                (res != res_id.none).assert();
+                
                     var   space = (u16) 0;
                     var   count =     get_slots_count(id);
                 ref var filters = ref get_filters_ref(id); 
 
                 for (slot_id slot_i = 0; slot_i < count; slot_i++)
-                    if (filters[slot_i].matches(res_id)) {
-                        var type = get_type_ref(id, slot_i);
+                    if (filters[slot_i].matches(res)) {
+                        var type = get_res(id, slot_i);
                         if (type == res_id.none)
                             space += get_cap(id, slot_i);
-                        else if (type == res_id) {
-                            var slot_space = get_cap(id, slot_i) - get_amount_ref(id, slot_i);
+                        else if (type == res) {
+                            var slot_space = get_cap(id, slot_i) - get_amount(id, slot_i);
                             (slot_space > 0).assert();
                             space += (u16)slot_space;
                         }
@@ -109,15 +108,17 @@ namespace Hyperway {
                 return space;
             }
                                 
-            public u16 get_total_cap(entity_id id, res_id res_id) {
+            public u16 get_total_cap(entity_id id, res_id res) {
+                (res != res_id.none).assert();
+                
                     var     cap = (u16)0;
                     var   count =     get_slots_count(id);
                 ref var filters = ref get_filters_ref(id); 
 
                 for (slot_id slot_i = 0; slot_i < count; slot_i++)
-                    if (filters[slot_i].matches(res_id)) {
-                        var type = get_type_ref(id, slot_i);
-                        if (type == res_id.none || type == res_id) 
+                    if (filters[slot_i].matches(res)) {
+                        var type = get_res(id, slot_i);
+                        if (type == res_id.none || type == res) 
                             cap += get_cap(id, slot_i);
                     }
 
@@ -125,28 +126,54 @@ namespace Hyperway {
             }
             
             public u16 get_total_amount(entity_id id, filter filter) {
+                (filter != filter.none).assert();
+                
                 var amount = (u16)0;
-                var  count = get_slots_count(id);
+                var count  = get_slots_count(id);
 
                 for (slot_id slot_i = 0; slot_i < count; slot_i++)
-                    if (filter.matches(get_type_ref(id, slot_i)))
-                        amount += get_amount_ref(id, slot_i);
+                    if (filter.matches(get_res(id, slot_i)))
+                        amount += get_amount(id, slot_i);
 
                 return amount;
             }
 
-            public bool has_space (entity_id id, res_id    res, u16 amount) => amount == 0 || get_total_space (id, res   ) >= amount;
-            public bool has_amount(entity_id id, filter filter, u16 amount) => amount == 0 || get_total_amount(id, filter) >= amount;
+            public bool has_space (entity_id id, res_id res, u16 amount) {
+                (amount != 0 && res != res_id.none).assert();
+                
+                return get_total_space(id, res) >= amount;
+            }
 
-            public u16 /* remainder */ sub(entity_id id, slot_id slot, filter filter, u16 amount) {
-                if (amount != 0) {} else return amount;
-                if (filter.matches(get_type_ref(id, slot))) {} else return amount;
+            public bool has_amount(entity_id id, filter filter, u16 amount) {
+                (amount != 0 && filter != filter.none).assert();
+                
+                return get_total_amount(id, filter) >= amount;
+            }
+
+            public res_id try_find(entity_id id, filter filter) {
+                (filter != filter.none).assert();
+                
+                var count = get_slots_count(id);
+                for (slot_id slot_i = 0; slot_i < count; slot_i++) {
+                    var type = get_res(id, slot_i);
+                    if (filter.matches(type))
+                        return type;
+                }
+
+                return res_id.none;
+            }
+
+            public u16 /* remainder */ sub(entity_id id, slot_id slot, res_id res, u16 amount) {
+                (amount != 0 && res != res_id.none).assert();
+
+                ref var res_ref = ref get_res_ref(id, slot);
+                if (res_ref == res) {} else return amount;
                 
                 ref var amount_ref = ref get_amount_ref(id, slot);
                 var new_amount = amount_ref - amount;
 
                 if (new_amount <= 0) {
-                    get_type_ref(id, slot) = res_id.none;
+                    res_ref = res_id.none;
                     amount_ref = 0;
                     return (u16)(-new_amount);
                 }
@@ -155,23 +182,23 @@ namespace Hyperway {
                 return 0;
             }
 
-            public u16 /* overflow */ add(entity_id id, slot_id slot, res_id res_id, u16 amount) {
-                if (amount != 0) {} else return amount;
+            public u16 /* overflow */ add(entity_id id, slot_id slot, res_id res, u16 amount) {
+                (amount != 0 && res != res_id.none).assert();
                 
-                ref var type = ref get_type_ref(id, slot);
-                if (type == res_id.none && get_filter(id, slot).matches(res_id)) type = res_id;
-                if (type == res_id) {} else return amount;
+                ref var res_ref = ref get_res_ref(id, slot);
+                if (res_ref == res_id.none && get_filter(id, slot).matches(res)) res_ref = res;
+                if (res_ref == res) {} else return amount;
                 
-                ref var s = ref get_amount_ref(id, slot);
-                var new_amount = s + amount;
+                ref var amount_ref = ref get_amount_ref(id, slot);
+                var new_amount = amount_ref + amount;
                 var cap = get_cap(id, slot);
                 
-                   s = (u16)min(new_amount, cap);
+                amount_ref = (u16)min(new_amount, cap);
                 return (u16)max(0, new_amount - cap);
             }
 
             public u16 /* overflow */ add(entity_id id, res_id res, u16 amount) {
-                if (amount != 0) {} else return 0;
+                (amount != 0 && res != res_id.none).assert();
                 
                 var count = get_slots_count(id);
                 for (slot_id slot_i = 0; slot_i < count && amount > 0; slot_i++)
@@ -180,21 +207,22 @@ namespace Hyperway {
                 return amount;
             }
             
-            public u16 /* remainder */ sub(entity_id id, filter filter, u16 amount) {
-                if (amount != 0) {} else return 0;
+            public u16 /* remainder */ sub(entity_id id, res_id res, u16 amount) {
+                (amount != 0 && res != res_id.none).assert();
                 
                 var count = get_slots_count(id);
                 for (slot_id slot_i = 0; slot_i < count && amount > 0; slot_i++)
-                    amount = sub(id, slot_i, filter, amount);
+                    amount = sub(id, slot_i, res, amount);
 
                 return amount;
             }
             
-            public bool try_sub(entity_id id, filter filter, u16 amount) {
-                if (amount != 0) {} else return true;
-                if (has_amount(id, filter, amount)) {} else return false;
+            public bool try_sub(entity_id id, res_id res, u16 amount) {
+                (amount != 0 && res != res_id.none).assert();
                 
-                var remainder = sub(id, filter, amount);
+                if (has_amount(id, res, amount)) {} else return false;
+                
+                var remainder = sub(id, res, amount);
                 (remainder == 0).assert();
                 return true;
             }
@@ -213,8 +241,7 @@ namespace Hyperway {
             public bool try_sub(entity_id id, in load_8 load_8, u8 count) { // find slots of all required resources, sub amounts if successful
                 for (u8 i = 0; i < count; i++) {
                     var load = load_8[i];
-                    if (get_total_amount(id, load.type) < load.amount)
-                        return false;
+                    if (has_amount(id, load.type, load.amount)) {} else return false;
                 }
 
                 sub(id, load_8, count);
@@ -247,24 +274,12 @@ namespace Hyperway {
             public void add_resource_amounts(ref u32_arr result) {
                 if (props.all(stores)) {} else return;
 
-                for (var entity_id = 0; entity_id < count; entity_id++) {
-                    var type_id    =  storage_spec_arr[entity_id];
-                    var slot_types = _storage_specs.slots_filter_arr[type_id];
-                    var slot_count = _storage_specs.slots_count_arr[type_id];
-                    for (u8 i = 0; i < slot_count; i++)
-                        result[slot_types[i]] += storage_slots_amount_arr[entity_id][i];
+                for (entity_id entity = 0; entity < count; entity++) {
+                    var slot_count = get_slots_count(entity);
+                    for (slot_id slot = 0; slot < slot_count; slot++) 
+                        result[get_res(entity, slot)] += get_amount(entity, slot);
                 }
             }
-        }
-    }
-
-    public static class storage_slot_types_ext {
-        public static slot_id index_of(this res_id_8 types, res_id res) {
-            for (u8 i = 0; i < 8; i++)
-                if (types[i] == res)
-                    return i;
-
-            return slot_id.none;
         }
     }
 }

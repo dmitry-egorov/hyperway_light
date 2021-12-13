@@ -25,8 +25,8 @@ namespace Hyperway {
         [save] public partial struct prod_spec_id {
             public byte value;
             
-            public static readonly spec_id none      = u8_max;
-            public static readonly spec_id max_count = u8_max - 1;
+            public static readonly spec_id none     = u8_max;
+            public static readonly int    max_count = u8_count;
             
             public static implicit operator byte(spec_id i) => i.value;
             public static implicit operator spec_id(byte b) => new spec_id {value = b};

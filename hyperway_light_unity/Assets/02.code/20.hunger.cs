@@ -4,6 +4,7 @@ using Unity.Collections;
 using Utilities.Collections;
 using static Hyperway.hyperway;
 using static Hyperway.hyperway.entity_type_props;
+using static Hyperway.hyperway.res_filter;
 
 namespace Hyperway {
     using save = SerializableAttribute;
@@ -42,22 +43,22 @@ namespace Hyperway {
 
             public void hunger_fields() => req(houses, ref hunger_level_arr);
 
-            public ref u8 ref_hunger_level(entity_id id) => ref hunger_level_arr.@ref(id);
+            public ref u8 get_hunger_level_ref(entity_id id) => ref hunger_level_arr.@ref(id);
         
             public void update_hunger() {
                 if (all(houses)) {} else return;
 
                 if (_hunger.ticks == 0) {} else return;
             
-                //nocheckin: all good for the new storage slots
-                
                 for (u16 entity_id = 0; entity_id < count; entity_id++) {
                     if (is_occupied(entity_id)) {} else continue;
 
-                    var had_food = try_sub(entity_id, res_filter.food, 1);
+                    var food_res = try_find(entity_id, food);
+                    
+                    var had_food = food_res != res_id.none && try_sub(entity_id, food_res, 1);
                     if (had_food) continue;
                     
-                    ref var hunger = ref ref_hunger_level(entity_id);
+                    ref var hunger = ref get_hunger_level_ref(entity_id);
                     hunger++;
                 
                     if (hunger > _hunger.max_level)

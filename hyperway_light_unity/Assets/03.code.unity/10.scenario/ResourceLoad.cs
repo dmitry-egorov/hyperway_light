@@ -2,21 +2,22 @@ using System;
 using Lanski.Utilities.assertions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities.Collections;
 using static Hyperway.hyperway;
 
 namespace Hyperway {
+    
+    using former = FormerlySerializedAsAttribute;
     using save = SerializableAttribute;
-    using Load = ResourceLoad;
-
     using        u16 = UInt16;
     using res_load_8 = fixed_arr_8<res_load<ushort>>;
     
     [save] public struct ResourceLoad {
-        public Resource type;
+        public Resource resource;
         public UInt16 amount;
-
-        public static implicit operator res_load<UInt16>(ResourceLoad rl) => new res_load<ushort> { type = rl.type, amount = rl.amount };
+        
+        public static implicit operator res_load<UInt16>(ResourceLoad rl) => new res_load<ushort> { type = rl.resource, amount = rl.amount };
         
         [CustomPropertyDrawer(typeof(ResourceLoad))]
         class PropertyDrawer : UnityEditor.PropertyDrawer {
@@ -28,12 +29,14 @@ namespace Hyperway {
                 var h  = pos.height;
                 var x  = pos.x; var y  = pos.y;
             
-                var r0 = new Rect(x           , y, tw, h);
-                var r1 = new Rect(x + tw  + 5 , y, aw, h);
-                prop(r0, nameof(type));
-                prop(r1, nameof(amount));
+                var r0 = new Rect(x         , y, tw, h);
+                var r1 = new Rect(x + tw + 5, y, aw, h);
+                field(r0, nameof(resource));
+                field(r1, nameof(amount));
 
-                void prop(Rect r, string name) => EditorGUI.PropertyField(r, property.FindPropertyRelative(name), GUIContent.none);
+                SerializedProperty prop(string name) => property.FindPropertyRelative(name);
+                void field (Rect r, string name) => field1(r, prop(name));
+                void field1(Rect r, SerializedProperty prop) => EditorGUI.PropertyField(r, prop, GUIContent.none);
             }
         }
     }
@@ -49,12 +52,12 @@ namespace Hyperway {
 
     public static partial class hyperway {
         public partial struct res_multi_8_arr {
-            public Load[] this[prod_spec_id id] {
+            public ResourceLoad[] this[prod_spec_id id] {
                 set {
                     counts[id] = (byte)value.Length;
                     loads [id] = value.to_res_load_8();
                 } 
             }
         }
-    } 
+    }
 }

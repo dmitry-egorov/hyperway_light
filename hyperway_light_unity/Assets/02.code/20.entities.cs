@@ -158,8 +158,8 @@ namespace Hyperway {
         }
 
         public class entity_type_spec : Attribute {
-            public readonly ushort capacity; public readonly props props;
-            public entity_type_spec(ushort capacity, props props) { this.capacity = capacity; this.props = props; }
+            public readonly u16 capacity; public readonly props props;
+            public entity_type_spec(u16 capacity, props props) { this.capacity = capacity; this.props = props; }
         }
     }
         

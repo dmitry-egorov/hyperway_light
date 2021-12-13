@@ -45,13 +45,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 1
-  houses_people: 0
-  storage_capacity:
-  - type: {fileID: 5843211096467573558}
-    amount: 16
-  - type: {fileID: 3416390284728993867}
-    amount: 16
-  production_type: {fileID: 4096528449099927905}
+  housesPeople: 0
+  storageSlots:
+  - type: 0
+    resource: {fileID: 5843211096467573558}
+    capacity: 16
+  - type: 0
+    resource: {fileID: 3416390284728993867}
+    capacity: 16
+  productionType: {fileID: 4096528449099927905}
 --- !u!1 &789836188615482368
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,10 +146,10 @@ MonoBehaviour:
   id:
     value: 0
   in:
-  - type: {fileID: 5843211096467573558}
+  - resource: {fileID: 5843211096467573558}
     amount: 2
   out:
-  - type: {fileID: 4406531001205043288}
+  - resource: {fileID: 4406531001205043288}
     amount: 1
   ticks: 15
 --- !u!1 &1086666259147207779
@@ -241,13 +243,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 2
-  houses_people: 1
-  storage_capacity:
-  - type: {fileID: 5076891611632039556}
-    amount: 8
-  - type: {fileID: 3416390284728993867}
-    amount: 8
-  production_type: {fileID: 0}
+  housesPeople: 1
+  storageSlots:
+  - type: 0
+    resource: {fileID: 5076891611632039556}
+    capacity: 8
+  - type: 2
+    resource: {fileID: 3416390284728993867}
+    capacity: 8
+  productionType: {fileID: 0}
 --- !u!1 &3130904514421568635
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,10 +446,10 @@ MonoBehaviour:
   id:
     value: 1
   in:
-  - type: {fileID: 5843211096467573558}
+  - resource: {fileID: 5843211096467573558}
     amount: 2
   out:
-  - type: {fileID: 3416390284728993867}
+  - resource: {fileID: 3416390284728993867}
     amount: 1
   ticks: 15
 --- !u!1 &4777600823732685099
@@ -525,13 +529,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id:
     value: 0
-  houses_people: 0
-  storage_capacity:
-  - type: {fileID: 5843211096467573558}
-    amount: 16
-  - type: {fileID: 4406531001205043288}
-    amount: 16
-  production_type: {fileID: 2629775962576950909}
+  housesPeople: 0
+  storageSlots:
+  - type: 0
+    resource: {fileID: 5843211096467573558}
+    capacity: 16
+  - type: 0
+    resource: {fileID: 4406531001205043288}
+    capacity: 16
+  productionType: {fileID: 2629775962576950909}
 --- !u!1 &6400056628169429861
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,25 +17,25 @@ namespace Hyperway {
     public class BuildingType : MonoBehaviour {
         public storage_spec_id id;
 
-        public bool houses_people;
-        [former("storage_capacity")] 
-        public ResourceLoad[] storage_slots;
-        public ProductionType production_type;
+        [former("houses_people")]
+        public bool housesPeople;
+        [former("storage_slots"), former("storage_capacity")] 
+        public ResourceSlot[] storageSlots;
+        [former("production_type")] 
+        public ProductionType productionType;
 
         void Start() {
-            (storage_slots.Length <= 8).assert();
-            var slots_count = (byte)storage_slots.Length;
+            (storageSlots.Length <= 8).assert();
+            var slots_count = (byte)storageSlots.Length;
             _storage_specs.slots_count_arr[id] = slots_count;
             
-            ref var slot_types = ref _storage_specs.slots_filter_arr.@ref(id);
+            ref var slot_filters = ref _storage_specs.slots_filter_arr.@ref(id);
             ref var slot_caps  = ref _storage_specs.slots_cap_arr .@ref(id);
             for (byte i = 0; i < slots_count; i++) {
-                var cap = storage_slots[i];
+                var slot = storageSlots[i];
                 
-                // todo: @nocheckin resource filters instead of types
-                // implement a switch between a filter (any, food) or a specific resource
-                slot_types.@ref(i) = cap.type; 
-                slot_caps .@ref(i) = cap.amount;
+                slot_filters.@ref(i) = slot.to_filter();
+                slot_caps   .@ref(i) = slot.capacity;
             }
         }
     }

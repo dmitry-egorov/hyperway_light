@@ -8,15 +8,14 @@ using static Hyperway.hyperway;
 
 namespace Hyperway {
     using prev = FormerlySerializedAsAttribute;
-    using Load = ResourceLoad;
     using u16  = UInt16;
     
     [after(typeof(ScenarioConfig))]
     public class ProductionType : MonoBehaviour {
         public prod_spec_id id;
 
-        public Load[] @in;
-        public Load[] @out;
+        public ResourceLoad[] @in;
+        public ResourceLoad[] @out;
         public  u16   ticks;
 
         void Start() {
