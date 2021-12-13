@@ -17,7 +17,7 @@ namespace Hyperway {
         public Resource resource;
         public UInt16 amount;
         
-        public static implicit operator res_load<UInt16>(ResourceLoad rl) => new res_load<ushort> { type = rl.resource, amount = rl.amount };
+        public static implicit operator res_load<UInt16>(ResourceLoad rl) => new res_load<ushort> { res = rl.resource, amount = rl.amount };
         
         [CustomPropertyDrawer(typeof(ResourceLoad))]
         class PropertyDrawer : UnityEditor.PropertyDrawer {

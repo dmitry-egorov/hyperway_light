@@ -1,10 +1,12 @@
 using System;
 using Lanski.Plugins.Persistance;
 using Unity.Collections;
+using UnityEditor;
 using Utilities.Collections;
 using static Hyperway.hyperway;
 using static Hyperway.hyperway.entity_type_props;
 using static Hyperway.hyperway.res_filter;
+using static UnityEngine.GUILayout;
 
 namespace Hyperway {
     using save = SerializableAttribute;
@@ -42,6 +44,11 @@ namespace Hyperway {
             [savefile] public u8__arr hunger_level_arr; // current hunger level
 
             public void hunger_fields() => req(houses, ref hunger_level_arr);
+
+            public void inspect_hunger(entity_id id) {
+                Label("Hunger");
+                draw(nameof(hunger_level_arr), hunger_level_arr, id);
+            }
 
             public ref u8 get_hunger_level_ref(entity_id id) => ref hunger_level_arr.@ref(id);
         

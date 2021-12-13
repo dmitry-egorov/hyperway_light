@@ -1,6 +1,7 @@
 using System;
 using Lanski.Plugins.Persistance;
 using Unity.Collections;
+using UnityEngine;
 using static Hyperway.hyperway.entity_type_props;
 
 namespace Hyperway {
@@ -12,6 +13,10 @@ namespace Hyperway {
             [savefile] public bit_arr occupied_arr; // is the house currently occupied
         
             public void family_fields() => req(houses, ref occupied_arr);
+            public void inspect_families(entity_id id) {
+                GUILayout.Label("Families");
+                draw(nameof(occupied_arr), occupied_arr, id);
+            }
             
             public void add_occupied(ref u16 result) {
                 if (props.all(houses)) {} else return;

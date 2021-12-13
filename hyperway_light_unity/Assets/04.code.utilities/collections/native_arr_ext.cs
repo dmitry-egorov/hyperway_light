@@ -31,7 +31,7 @@ namespace Utilities.Collections {
             }
             arr = new NativeArray<t>(count, Persistent, ClearMemory);
         }
-        
+
         public static void init(this ref NativeBitArray arr, int count) {
             if (arr.IsCreated) {
                 if (arr.Length == count) {

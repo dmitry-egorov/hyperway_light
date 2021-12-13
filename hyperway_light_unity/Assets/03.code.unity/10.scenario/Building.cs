@@ -3,11 +3,10 @@ using Common;
 using Lanski.Utilities.assertions;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Utilities.Assertions;
 using Utilities.Collections;
 using Utilities.Maths;
-using static Hyperway.hyperway.entity_type_id;
 using static Hyperway.hyperway;
+using static Hyperway.hyperway.entity_type_props;
 
 namespace Hyperway {
     using former = FormerlySerializedAsAttribute;
@@ -27,36 +26,45 @@ namespace Hyperway {
             var btype = buildingType;
             (btype != null || initialResources.Length == 0).assert();
             
-            ref var type = ref _entities[btype.housesPeople ? house : building];
-            var storage_id = btype == null ? storage_spec_id.none : btype.id;
-            var prod_id    = btype == null || btype.productionType == null ? prod_spec_id.none : btype.productionType.id;
+            // @nocheckin @todo: warehouse
+            var entity_type_id = btype.entity_type;
+            ref var type = ref _entities[entity_type_id];
             
-            var entity_id = type.add_building(transform, storage_id, prod_id, btype.housesPeople);
+            var storage_id = btype.storage_spec_id;
+            var prod_id    = btype.productionType == null ? prod_spec_id.none : btype.productionType.id;
+            
+            var entity_id = type.add_building(transform, storage_id, prod_id);
             foreach (var load in initialResources) {
+                if (load.amount != 0) {} else continue;
+
                 var overflow = type.add(entity_id, load);
                 (overflow == 0).assert("Initial resources exceed capacity");
             }
+
+            var view = gameObject.AddComponent<Entity>();
+            view.id = type.remote_from(entity_id);
+            view.transform.SetSiblingIndex(transform.GetSiblingIndex());
         }
     }
 
     public static partial class hyperway {
         public partial struct entity_type {
-            public entity_id add_building(Transform trans, storage_spec_id bspec, prod_spec_id pspec, bool houses) {
+            public entity_id add_building(Transform trans, storage_spec_id bspec, prod_spec_id pspec) {
                 var i = count;
                 count++;
                 (count <= capacity).assert();
             
                 trans_arr.Add(trans);
             
-                curr_pos_arr          [i] = trans.localPosition.xz();
-                storage_spec_arr      [i] = bspec;
+                curr_pos_arr    [i] = trans.localPosition.xz();
+                storage_spec_arr[i] = bspec;
                 storage_slots_type_arr.@ref(i).set(res_id.none);
 
-                if (prod_spec_id_arr.IsCreated) {
+                if (all(produces)) {
                     prod_spec_id_arr[i] = pspec;
                 }
 
-                if (houses) {
+                if (all(houses)) {
                     occupied_arr.Set(i, true);
                 }
 

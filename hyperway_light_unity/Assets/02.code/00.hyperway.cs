@@ -2,6 +2,8 @@ using static Utilities.Profiling.profiler_ex;
 
 namespace Hyperway {
     public static partial class hyperway {
+        public const int max_storage_slots = 8;
+        
         public static void init() {
             _resources    .init();
             _prod_specs   .init();

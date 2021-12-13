@@ -60,9 +60,13 @@ namespace Utilities.Collections {
             set => this.@ref(i) = value;
         }
 
-        public void reset() => item0 = item1 = item2 = item3 = item4 = item5 = item6 = item7 = default;
+        public void reset(       ) => item0 = item1 = item2 = item3 = item4 = item5 = item6 = item7 = default;
         public void   set(t value) => item0 = item1 = item2 = item3 = item4 = item5 = item6 = item7 = value;
         public bool   all(t value) => item0.Equals(value) && item1.Equals(value) && item2.Equals(value) && item3.Equals(value) && item4.Equals(value) && item5.Equals(value) && item6.Equals(value) && item7.Equals(value);
+
+        public override string ToString() {
+            return $"[{item0.ToString()}, {item1.ToString()}, {item2.ToString()}, {item3.ToString()}, {item4.ToString()}, {item5.ToString()}, {item6.ToString()}, {item7.ToString()}]";
+        }
     }
 
     public static class fixed_arr_8_ext {

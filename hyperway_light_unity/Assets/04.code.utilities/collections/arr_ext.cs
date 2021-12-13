@@ -64,6 +64,14 @@ namespace Utilities.Collections {
             expand(ref arr7, count);
             expand(ref arr8, count);
         }
+        
+
+        public static void init<t>(ref t[] arr, int count) {
+            if (arr == null || arr.Length != count)
+                arr = new t[count];
+            Array.Clear(arr, 0, count);
+        }
+        
 
         public static void copy_from<t>(this t[] dst, t[] src, int count) => Array.Copy(src, dst, count);
         

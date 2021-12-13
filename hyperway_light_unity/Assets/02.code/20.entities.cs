@@ -32,6 +32,11 @@ namespace Hyperway {
     public static partial class hyperway {
         public static entities _entities;
 
+        public partial struct remote_entity_id {
+            public entity_type_id type_id;
+            public entity_id id;
+        }
+
         public partial struct entity_id {
             public u16 value;
 
@@ -40,22 +45,24 @@ namespace Hyperway {
         }
 
         public enum entity_type_id: byte {
-            [spec(u16_max, rendered           )] scenery  = 0,
-            [spec(u16_max, rendered | moves   )] figure   = 1,
-            [spec( u8_max, rendered | produces)] building = 2,
-            [spec( u8_max, rendered | houses  )] house    = 3, //TODO: house with production
+            [spec(u16_max, rendered               )] scenery   = 0,
+            [spec(u16_max, rendered | moves       )] figure    = 1,
+            [spec(    256, rendered | produces    )] producer  = 2,
+            [spec(    256, rendered | houses      )] house     = 3, //TODO: house with production
+            [spec(     64, rendered | accepts)] warehouse = 4,
 
             [name(null)] count
         }
 
         [save, bits] public enum entity_type_props: uint {
-            none       = 0,
+            none         = 0,
 
             positioned = 1 << 0,
             moves      = 1 << 1 | positioned,
             stores     = 1 << 2,
-            produces   = 1 << 3 | stores,
+            produces   = 1 << 3 | stores | positioned,
             houses     = 1 << 4 | stores,
+            accepts    = 1 << 5 | stores | positioned, // accepts resources
 
             rendered   = 1 << 16 | positioned,
         }
@@ -67,8 +74,11 @@ namespace Hyperway {
 
             public void init() {
                 type_arr = new entity_type[(int)count];
-                for (entity_type_id i = 0; i < count; i++) 
+                for (entity_type_id i = 0; i < count; i++) {
+                    this[i].name = Enum.GetName(typeof(entity_type_id), i);
                     this[i].fields(i);
+                    this[i].id = i;
+                }
             }
             
             public void start() {
@@ -77,6 +87,7 @@ namespace Hyperway {
 
             public void update_simulation() {
                 for_each((ref entity_type _) => _.produce());
+                for_each((ref entity_type _) => _.send_products());
                 for_each((ref entity_type _) => _.update_hunger());
 
                 for_each((ref entity_type _) => _.remember_prev_positions());
@@ -109,6 +120,8 @@ namespace Hyperway {
         }
 
         [save] public partial struct entity_type {
+            [permanent] public entity_type_id id;
+            [permanent] public string name;
             [permanent] public props props;
             [permanent] public   u16 capacity;
             
@@ -124,12 +137,16 @@ namespace Hyperway {
                   movement_fields();
                    storage_fields();
                 production_fields();
+                 logistics_fields();
                     family_fields();
                     hunger_fields();
             }
             
             public bool all(props check) => props.all(check);
             public bool any(props check) => props.any(check);
+
+            public ref entity_type get_type_ref(entity_type_id id) => ref _entities[id];
+            public remote_entity_id remote_from(entity_id id) => new remote_entity_id {type_id = this.id, id = id};
 
             
             public bool req<t1>(props p, ref t1[] a1) { if (props.all(p)) expand(ref a1, capacity); return true; }
@@ -152,8 +169,7 @@ namespace Hyperway {
             public void init<t1, t2>(ref NativeArray<t1> a1, ref NativeArray<t2> a2) where t1 : struct where t2 : struct { init(ref a1); init(ref a2); }
             public void init<t1, t2, t3>(ref NativeArray<t1> a1, ref NativeArray<t2> a2, ref NativeArray<t3> a3) where t1 : struct where t2 : struct where t3 : struct { init(ref a1); init(ref a2); init(ref a3); }
 
-            
-            public delegate void action(ref entity_type entity_type);
+            public delegate void action   (            ref entity_type entity_type);
             public delegate void action<t>(ref t data, ref entity_type entity_type);
         }
 

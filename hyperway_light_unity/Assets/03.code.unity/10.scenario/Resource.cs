@@ -11,7 +11,7 @@ namespace Hyperway {
         public bool isFood;
 
         void Start() {
-            _resources.add_resource(id, isFood);
+            _resources.add_resource(id, name, isFood);
         }
 
         public static implicit operator res_id    (Resource rt) => rt.id;
@@ -20,8 +20,8 @@ namespace Hyperway {
 
     public static partial class hyperway {
         public partial struct resources {
-            public void add_resource(res_id res_id, bool id_food) {
-                _resources.name_arr[res_id] = res_id.name;
+            public void add_resource(res_id res_id, string name, bool id_food) {
+                _resources.name_arr[res_id] = name;
                 _resources.is_food_arr.Set(res_id, id_food);
             }
         }

@@ -15,7 +15,7 @@ namespace Hyperway {
         [name("keyboard speed" )] public float camera_keyboard_speed  =  10;
         [name("mouse max speed")] public float camera_mouse_max_speed = 150;
         [name("mouse slowdown" )] public float camera_mouse_slowdown  = 100;
-
+        
         void Awake() => update_settings();
 
         #if UNITY_EDITOR

@@ -5,6 +5,7 @@ using Utilities.Collections;
 using static Hyperway.hyperway;
 using static Hyperway.hyperway.res_id;
 using static Lanski.Utilities.constants.consts;
+using static Utilities.Collections.arr_ext;
 
 namespace Hyperway {
     using save    =  SerializableAttribute;
@@ -23,7 +24,7 @@ namespace Hyperway {
         [save] public partial struct res_id {
             public u8 value;
 
-            public string name => this == none ? "none" : _resources.name_arr[value];
+            public string name => value == none ? "none" : _resources.name_arr[value];
 
             public static readonly res_id none   = u8_max;
             public static readonly int max_count = u8_count;
@@ -64,7 +65,7 @@ namespace Hyperway {
             public bit_arr  is_food_arr;
 
             public void init() {
-                name_arr ??= new string[max_count];
+                arr_ext.init(ref name_arr, max_count);
                 is_food_arr.init(max_count);
             }
         }
@@ -72,7 +73,7 @@ namespace Hyperway {
         public static bool is_food(this res_id res_id) => _resources.is_food_arr.IsSet(res_id);
 
         [save] public partial struct res_load<t> {
-            public res_id type;
+            public res_id res;
             public t      amount;
         }
     

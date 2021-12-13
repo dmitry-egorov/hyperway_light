@@ -1,3 +1,8 @@
+- producers require a delivery bot, to deliver resources to and from the storage
+- bot goes to unloading storage, then to the loading storage
+- how to deliver resources to houses?
+
+
 - bots consume energy from the grid
 - if energy is not available, they're greatly slowed down
 

@@ -4,6 +4,7 @@ using Unity.Burst;
 using Unity.Collections;
 using UnityEngine.Jobs;
 using static Hyperway.hyperway.entity_type_props;
+using static UnityEngine.GUILayout;
 
 namespace Hyperway {
     using burst = BurstCompileAttribute; using read = ReadOnlyAttribute;
@@ -16,6 +17,11 @@ namespace Hyperway {
         
             public void rendering_fields() {
                 req(rendered, ref trans_arr);
+            }
+
+            public void inspect_rendering(entity_id id) {
+                Label("Rendering");
+                draw(nameof(trans_arr), trans_arr, id);
             }
 
             public void set_initial_transform() {
