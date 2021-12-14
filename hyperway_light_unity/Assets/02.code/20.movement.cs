@@ -21,10 +21,8 @@ namespace Hyperway {
                 req(moves, ref prev_pos_arr, ref curr_vel_arr);
             }
 
-            
             public void inspect_movement(entity_id id) {
                 Label("Movement");
-
                 draw(nameof(prev_pos_arr), prev_pos_arr, id);
                 draw(nameof(curr_vel_arr), curr_vel_arr, id);
             }

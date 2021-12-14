@@ -8,7 +8,6 @@ using static Hyperway.hyperway.entity_type_props;
 using static Hyperway.hyperway;
 using static Lanski.Utilities.constants.consts;
 using static UnityEngine.GUILayout;
-using static Utilities.Collections.arr_ext;
 
 namespace Hyperway {
     using save    =  SerializableAttribute;
@@ -41,13 +40,13 @@ namespace Hyperway {
         [save] public partial struct prod_specs {
             public byte count;
 
-            [scenario] public string[] name_arr;
+            [scenario] public string[]                 name_arr;
             [scenario] public res_multi_8_arr out_resources_arr;
             [scenario] public res_multi_8_arr  in_resources_arr;
             [scenario] public u16_arr        required_ticks_arr;
 
             public void init() {
-                arr_ext.init(ref name_arr, max_count);
+                init(ref name_arr);
                 init(ref   in_resources_arr);
                 init(ref  out_resources_arr);
                 init(ref required_ticks_arr);
@@ -55,6 +54,7 @@ namespace Hyperway {
 
             void init<t>(ref NativeArray<t> arr) where t : struct => arr.init(max_count);
             void init   (ref res_multi_8_arr arr) { arr.loads.init(max_count); arr.counts.init(max_count); }
+            void init<t>(ref t[] arr) { arr_ext.init(ref arr, max_count); }
         }
         
         public partial struct entity_type {

@@ -28,7 +28,7 @@ namespace Hyperway {
                 type.inspect_logistics (entity.id);
                 type.inspect_production(entity.id);
                 type.inspect_families  (entity.id);
-                type.inspect_hunger  (entity.id);
+                type.inspect_hunger    (entity.id);
                 
                 GUI.enabled = true;
             }

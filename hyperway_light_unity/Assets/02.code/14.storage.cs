@@ -60,13 +60,15 @@ namespace Hyperway {
             [scenario] public u8_8_arr     slots_cap_arr;    // capacity per slot
 
             public void init() {
-                var max = spec_id.max_count;
-                
-                arr_ext.init(ref name_arr, max);
-                slots_count_arr .init(max);
-                slots_filter_arr.init(max);
-                slots_cap_arr   .init(max);
+                init(ref name_arr);
+                init(ref slots_count_arr );
+                init(ref slots_filter_arr);
+                init(ref slots_cap_arr   );
             }
+            
+            void init<t>(ref t[] arr) { arr_ext.init(ref arr, spec_id.max_count); }
+            void init<t>(ref NativeArray<t> arr) where t : struct => arr.init(spec_id.max_count);
+
 
             public           u8 get_slots_count(spec_id spec_id              ) =>     slots_count_arr      [spec_id];
             public ref filter_8 get_filters_ref(spec_id spec_id              ) => ref slots_filter_arr.@ref(spec_id);
@@ -121,7 +123,7 @@ namespace Hyperway {
                         space += get_cap(id, slot_i);
                     else if (type == res) {
                         var slot_space = get_cap(id, slot_i) - get_amount(id, slot_i);
-                        (slot_space > 0).assert();
+                        (slot_space >= 0).assert();
                         space += (u16)slot_space;
                     }
                 }

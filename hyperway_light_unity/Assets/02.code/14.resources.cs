@@ -1,11 +1,11 @@
 using System;
+using Lanski.Plugins.Persistance;
 using Unity.Collections;
 using UnityEngine;
 using Utilities.Collections;
 using static Hyperway.hyperway;
 using static Hyperway.hyperway.res_id;
 using static Lanski.Utilities.constants.consts;
-using static Utilities.Collections.arr_ext;
 
 namespace Hyperway {
     using save    =  SerializableAttribute;
@@ -61,13 +61,16 @@ namespace Hyperway {
         }
     
         [save] public partial struct resources {
-            public string[] name_arr;
-            public bit_arr  is_food_arr;
+            [scenario] public string[] name_arr;
+            [scenario] public bit_arr  is_food_arr;
 
             public void init() {
-                arr_ext.init(ref name_arr, max_count);
-                is_food_arr.init(max_count);
+                init(ref name_arr);
+                init(ref is_food_arr);
             }
+            
+            void init   (ref NativeBitArray arr) => arr.init(max_count);
+            void init<t>(ref t[] arr) { arr_ext.init(ref arr, max_count); }
         }
         
         public static bool is_food(this res_id res_id) => _resources.is_food_arr.IsSet(res_id);

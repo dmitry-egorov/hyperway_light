@@ -148,7 +148,6 @@ namespace Hyperway {
             public ref entity_type get_type_ref(entity_type_id id) => ref _entities[id];
             public remote_entity_id remote_from(entity_id id) => new remote_entity_id {type_id = this.id, id = id};
 
-            
             public bool req<t1>(props p, ref t1[] a1) { if (props.all(p)) expand(ref a1, capacity); return true; }
             public bool req<t1, t2>(props p, ref t1[] a1, ref t2[] a2) { if (props.all(p)) expand(ref a1, ref a2, capacity); return true; }
             public bool req<t1, t2, t3>(props p, ref t1[] a1, ref t2[] a2, ref t3[] a3) { if (props.all(p)) expand(ref a1, ref a2, ref a3, capacity); return true; }
