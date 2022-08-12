@@ -14,7 +14,6 @@ namespace Hyperway {
     
     using load = res_load<ushort>;
     using entity_arr = NativeArray<entity_id>;
-    using search     = entity_type.warehouse_search_data;
 
     public static partial class hyperway {
         public static logistics _logistics;
@@ -46,9 +45,10 @@ namespace Hyperway {
                     ref var remaining = ref get_teleport_remaining_ref(producer);
                     if (remaining > 0) remaining -= 1;
                     
-                    // export resources
-                    if (remaining == 0 && export_is_scheduled(producer)) {} else continue;
+                    if (remaining == 0)                {} else continue;
+                    if (export_is_scheduled(producer)) {} else continue;
 
+                    // export resources
                         var spec  =     get_prod_spec(producer);
                         var count =     get_out_count    (spec);
                     ref var loads = ref get_out_loads_ref(spec);
@@ -60,7 +60,8 @@ namespace Hyperway {
                         var load = loads[load_i];
                         load.amount = batch_amount;
                         if (has_amount(producer, load)) {} else continue; // resource not found
-                        if (try_find_closest_warehouse_with_space_for(load, get_position(producer), out var warehouse)) {} else { all_products_sent = false; continue; } // warehouse with free space not found
+                        if (try_find_closest_warehouse_with_space(load, get_position(producer), out var warehouse)) 
+                                                        {} else { all_products_sent = false; continue; } // warehouse with free space not found
 
                         var remainder = sub(producer , load);
                         var overflow  = add(warehouse, load);
@@ -71,20 +72,21 @@ namespace Hyperway {
                         all_products_sent = load_i == count - 1; // last product was sent
                         break;
                     }
+
+                    if (all_products_sent) {} else continue;
                     
-                    if (all_products_sent)
-                        reset_export(producer);
+                    reset_export(producer);
                 }
             }
 
-            public struct warehouse_search_data {
+            public struct warehouse_search {
                 public load load;
                 public point2 source_position;
                 public float min_dist_sq;
                 public remote_entity_id result;
                 public bool found;
 
-                public warehouse_search_data(load load, point2 source_position) : this() {
+                public warehouse_search(load load, point2 source_position) : this() {
                     this.load = load;
                     this.source_position = source_position;
                     
@@ -92,27 +94,27 @@ namespace Hyperway {
                 }
             }
 
-            public bool try_find_closest_warehouse_with_space_for(load load, point2 source_position, out remote_entity_id result) {
-                var search = new search(load, source_position);
-                _entities.for_each(ref search, (ref search data, ref entity_type _) => _.find_closest_warehouse_with_space_for(ref data));
+            public bool try_find_closest_warehouse_with_space(load load, point2 source_position, out remote_entity_id result) {
+                var search = new warehouse_search(load, source_position);
+                _entities.for_each(ref search, (ref warehouse_search search, ref entity_type _) => _.execute(ref search));
 
                 if (search.found) {} else { result = default; return false; }
                 { result = search.result; return true; }
             }
 
-            public void find_closest_warehouse_with_space_for(ref search data) {
+            public void execute(ref warehouse_search search) {
                 if (all(accepts)) {} else return;
 
                 for (entity_id warehouse = 0; warehouse < count; warehouse++) {
                     var pos = get_position(warehouse);
 
-                    var distance_sq = data.source_position.distance_sq_to(pos);
-                    if (distance_sq < data.min_dist_sq)  {} else continue; // too far
-                    if (has_space(warehouse, data.load)) {} else continue; // no space
+                    var distance_sq = search.source_position.distance_sq_to(pos);
+                    if (distance_sq < search.min_dist_sq)  {} else continue; // too far
+                    if (has_space(warehouse, search.load)) {} else continue; // no space
 
-                    data.min_dist_sq = distance_sq;
-                    data.result = remote_from(warehouse);
-                    data.found  = true;
+                    search.min_dist_sq = distance_sq;
+                    search.result = remote_from(warehouse);
+                    search.found  = true;
                 }
             }
 

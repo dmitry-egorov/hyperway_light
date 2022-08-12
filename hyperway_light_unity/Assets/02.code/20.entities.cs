@@ -45,11 +45,11 @@ namespace Hyperway {
         }
 
         public enum entity_type_id: byte {
-            [spec(u16_max, rendered               )] scenery   = 0,
-            [spec(u16_max, rendered | moves       )] figure    = 1,
-            [spec(    256, rendered | produces    )] producer  = 2,
-            [spec(    256, rendered | houses      )] house     = 3, //TODO: house with production
-            [spec(     64, rendered | accepts)] warehouse = 4,
+            [spec(u16_max, rendered           )] scenery   = 0,
+            [spec(u16_max, rendered | moves   )] figure    = 1,
+            [spec(    256, rendered | produces)] producer  = 2,
+            [spec(    256, rendered | houses  )] house     = 3,
+            [spec(     64, rendered | accepts )] warehouse = 4,
 
             [name(null)] count
         }

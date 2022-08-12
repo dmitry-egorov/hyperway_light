@@ -1,0 +1,15 @@
+- order of send and get resources
+  - the producer is responsible for both sending and receiving
+  - teleport cooldown
+    + separate for send and receive
+    - alterating
+    - first send all, then receive all
+  
+
+
+- house resource delivery:
+  1. house works like a producer, sending a bot to receive resources (this for now)
+  2. or houses use markets
+     - markets send bots to get resources
+     - markets send bots to distribute resources (solve traveling salesmen)
+     - ^or houses send bots to get the resources from the market

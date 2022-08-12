@@ -17,10 +17,10 @@
 + storage
   + resource constraints on slots + specific stored types
   
-- interchange resources
-  - producers send their resources to the warehouse
++ interchange resources
+  + producers send their resources to the warehouse
     + send production result
-  - consumer get resources from the warehouse
+  - consumers get resources from the warehouse
 
 - global resources: e.g. energy, water, can be set by a scenario
  

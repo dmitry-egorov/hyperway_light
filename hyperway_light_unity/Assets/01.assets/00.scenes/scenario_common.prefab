@@ -249,10 +249,10 @@ MonoBehaviour:
   - filter: 0
     resource: {fileID: 5076891611632039556}
     capacity: 8
-  - filter: 2
+  - filter: 0
     resource: {fileID: 3416390284728993867}
     capacity: 4
-  - filter: 2
+  - filter: 0
     resource: {fileID: 3416390284728993867}
     capacity: 4
 --- !u!1 &3130904514421568635
